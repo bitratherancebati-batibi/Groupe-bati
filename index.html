@@ -383,7 +383,7 @@ function updateMemberSelect() {
     : '<option value="">Aucun membre</option>';
 }
 
-function renderPayments() renderExpenses();{
+function renderPayments() {
   const sorted = [...payments].sort((a,b) =>
     Number(b.mois || 0) - Number(a.mois || 0)
   );
@@ -407,6 +407,7 @@ $("totalValidated").textContent = money(
 
   renderAdminPayments();
   renderMembers();
+renderExpenses();
 }
 
 function renderAdminPayments() {
