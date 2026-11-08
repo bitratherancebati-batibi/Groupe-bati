@@ -384,10 +384,12 @@ function renderPayments() {
   const sorted = [...payments].sort((a,b) =>
     Number(b.mois || 0) - Number(a.mois || 0)
   );
-
-  $("totalValidated").textContent =
-    payments.filter(p => p.statut === "valide").length;
-
+$("totalValidated").textContent = money(
+  payments
+    .filter(p => p.statut === "valide")
+    .reduce((total, p) => total + Number(p.montant || 0), 0)
+);
+  
   $("paymentHistory").innerHTML = sorted.length
     ? sorted.map(p => `
       <tr>
