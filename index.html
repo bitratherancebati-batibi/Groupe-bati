@@ -380,7 +380,7 @@ function updateMemberSelect() {
     : '<option value="">Aucun membre</option>';
 }
 
-function renderPayments() {
+function renderPayments() renderExpenses();{
   const sorted = [...payments].sort((a,b) =>
     Number(b.mois || 0) - Number(a.mois || 0)
   );
