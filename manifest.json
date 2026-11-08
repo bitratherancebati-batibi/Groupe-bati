@@ -1,0 +1,17 @@
+{
+  "name": "FAMILLE BATI",
+  "short_name": "FAMILLE BATI",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#8B5A2B",
+  "theme_color": "#8B5A2B",
+  "icons": [
+    {
+      "src": "./designer.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
