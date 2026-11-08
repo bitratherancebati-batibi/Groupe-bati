@@ -7,194 +7,102 @@
 
 <style>
 :root {
- --primary-color:#8B5A2B;
- --secondary-color:#D4AF37;
- --dark-color:#2C2C2C;
- --light-color:#F9F6F0;
- --success-color:#28a745;
- --danger-color:#dc3545;
+  --or:#D4AF37;
+  --brun:#8B5A2B;
+  --noir:#21180F;
+  --fond:#F8F5EF;
+  --blanc:#FFFFFF;
+  --vert:#16834A;
+  --rouge:#C0392B;
+  --orange:#D88916;
 }
-* {
- box-sizing:border-box;
- margin:0;
- padding:0;
- font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--fond);
+  color:#28221B;
 }
-body {
- background:var(--light-color);
- color:var(--dark-color);
- line-height:1.6;
+header{
+  background:linear-gradient(135deg,#21180F,#65401F);
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+  border-bottom:4px solid var(--or);
 }
-header {
- background:linear-gradient(135deg,#2C2C2C,#4A4A4A);
- color:white;
- text-align:center;
- padding:20px;
- position:relative;
- border-bottom:4px solid var(--secondary-color);
+.logo{
+  width:95px;height:95px;object-fit:cover;
+  border-radius:50%;border:3px solid var(--or);
+  background:white;
 }
-.logo-container {margin-bottom:10px;}
-.logo-container img {
- width:140px;
- height:140px;
- border-radius:50%;
- object-fit:cover;
- border:3px solid var(--secondary-color);
+header h1{color:var(--or);margin:10px 0 5px}
+header p{margin:5px}
+.container{max-width:1100px;margin:auto;padding:15px}
+.card{
+  background:white;padding:18px;margin:15px 0;
+  border-radius:12px;box-shadow:0 2px 9px #00000012;
 }
-h1 {
- font-size:1.8rem;
- color:var(--secondary-color);
- text-transform:uppercase;
+h2{color:var(--brun);margin-top:0}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
 }
-.subtitle {font-size:.95rem;}
-.admin-trigger {
- position:absolute;
- top:15px;
- right:15px;
- background:var(--secondary-color);
- color:var(--dark-color);
- border:0;
- padding:8px 15px;
- font-weight:bold;
- border-radius:5px;
- cursor:pointer;
+.stat{
+  background:#fff;padding:15px 8px;text-align:center;
+  border-radius:10px;border-bottom:3px solid var(--or);
 }
-.container {
- max-width:1100px;
- margin:20px auto;
- padding:0 15px;
+.stat strong{display:block;font-size:22px;color:var(--brun)}
+.stat span{font-size:12px}
+button{
+  border:0;border-radius:7px;padding:11px 14px;
+  cursor:pointer;font-weight:bold;background:var(--brun);
+  color:white;margin:4px 2px;
 }
-.card {
- background:white;
- border-radius:10px;
- padding:20px;
- margin-bottom:20px;
- box-shadow:0 4px 10px rgba(0,0,0,.05);
- border-left:5px solid var(--primary-color);
+button:hover{opacity:.9}
+.gold{background:var(--or);color:#21180F}
+.red{background:var(--rouge)}
+.green{background:var(--vert)}
+.gray{background:#555}
+input,select,textarea{
+  width:100%;padding:12px;margin:6px 0 12px;
+  border:1px solid #ccc;border-radius:7px;
+  font-size:15px;background:white;
 }
-.card h3 {
- color:var(--primary-color);
- margin-bottom:12px;
- border-bottom:2px solid var(--light-color);
- padding-bottom:8px;
+label{font-weight:bold;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 7px;border-bottom:1px solid #eee;text-align:center}
+th{background:#6C4728;color:white}
+.table-wrap{overflow-x:auto}
+.status{
+  display:inline-block;padding:5px 7px;border-radius:5px;
+  font-size:11px;font-weight:bold;white-space:nowrap;
 }
-.announcement-box {
- background:#fff8e1;
- border-left:5px solid var(--secondary-color);
- padding:15px;
- border-radius:8px;
- margin-bottom:20px;
+.valid{background:#D8F3E2;color:#126638}
+.pending{background:#FFF0CC;color:#875400}
+.refused{background:#FADBD8;color:#922B21}
+.unpaid{background:#EEEEEE;color:#555}
+.announcement{
+  background:#FFF8E6;border-left:5px solid var(--or);
+  padding:13px;border-radius:5px;white-space:pre-wrap;
 }
-.stats-grid {
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
- gap:15px;
- margin-bottom:20px;
+.modal{
+  display:none;position:fixed;inset:0;background:#0009;
+  z-index:10;overflow:auto;padding:20px;
 }
-.stat-card {
- background:white;
- padding:15px;
- border-radius:8px;
- text-align:center;
- border-top:3px solid var(--secondary-color);
+.modal-content{
+  background:white;max-width:520px;margin:35px auto;
+  padding:20px;border-radius:12px;
 }
-.stat-card h4 {font-size:.9rem;color:#666;}
-.stat-card p {
- font-size:1.3rem;
- font-weight:bold;
- color:var(--primary-color);
+.admin-panel{display:none}
+.small{font-size:12px;color:#777}
+footer{
+  background:#21180F;color:white;text-align:center;
+  padding:20px;margin-top:30px;
 }
-button.action-btn {
- background:var(--primary-color);
- color:white;
- border:0;
- padding:10px 20px;
- border-radius:5px;
- cursor:pointer;
- font-size:1rem;
- margin:5px 0;
-}
-button.action-btn:hover {background:#6b431e;}
-input,select,textarea {
- width:100%;
- padding:10px;
- margin:8px 0;
- border:1px solid #ccc;
- border-radius:5px;
- font-size:1rem;
-}
-table {
- width:100%;
- border-collapse:collapse;
- margin-top:10px;
- font-size:.85rem;
- background:white;
-}
-th,td {
- padding:9px;
- text-align:center;
- border-bottom:1px solid #ddd;
- white-space:nowrap;
-}
-th {background:var(--primary-color);color:white;}
-.modal {
- display:none;
- position:fixed;
- inset:0;
- width:100%;
- height:100%;
- background:rgba(0,0,0,.6);
- justify-content:center;
- align-items:center;
- z-index:1000;
- padding:10px;
-}
-.modal-content {
- background:white;
- padding:25px;
- border-radius:10px;
- width:95%;
- max-width:500px;
- max-height:90vh;
- overflow-y:auto;
- position:relative;
-}
-.close-modal {
- position:absolute;
- top:10px;
- right:15px;
- font-size:1.5rem;
- cursor:pointer;
-}
-.badge-success {
- background:var(--success-color);
- color:white;
- padding:4px 8px;
- border-radius:4px;
-}
-.badge-warning {
- background:#ffc107;
- color:#333;
- padding:4px 8px;
- border-radius:4px;
-}
-.ai-advice {
- background:#e8f4fd;
- border-left:5px solid #2196F3;
- padding:15px;
- border-radius:8px;
- margin-bottom:20px;
-}
-.admin-section {
- background:#f4f4f4;
- padding:15px;
- border-radius:5px;
- margin-bottom:15px;
-}
-.small-note {
- font-size:.8rem;
- color:#666;
- margin-top:8px;
+@media(max-width:600px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .stat strong{font-size:18px}
+  .stat span{font-size:10px}
+  th,td{padding:7px 5px}
 }
 </style>
 </head>
@@ -202,652 +110,627 @@ th {background:var(--primary-color);color:white;}
 <body>
 
 <header>
-<button class="admin-trigger" onclick="openAdminLogin()">BATI</button>
-
-<div class="logo-container">
-<img id="mainLogo"
-src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><circle cx='70' cy='70' r='70' fill='%23D4AF37'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%232C2C2C' font-weight='bold'>BATI</text></svg>"
-alt="Logo Famille Bati">
-</div>
-
-<h1>Famille BATI</h1>
-<p class="subtitle">Plus qu'un nom, une famille toujours unie</p>
+  <img id="siteLogo" class="logo" alt="Logo FAMILLE BATI">
+  <h1>FAMILLE BATI</h1>
+  <p>Unis par les liens familiaux</p>
+  <p><small>Espace officiel de notre communauté</small></p>
 </header>
 
-<div class="container">
+<main class="container">
 
-<div class="ai-advice" id="aiAdviceBox">
-🤖 <strong>Conseil Famille BATI :</strong>
-La régularité dans la cotisation de 1 000 FCFA par mois,
-à partir de janvier 2027, est la clé de notre autonomie
-et de notre force collective.
-</div>
+  <section class="stats">
+    <div class="stat">
+      <strong id="totalMembers">0</strong>
+      <span>Membres</span>
+    </div>
+    <div class="stat">
+      <strong id="totalValidated">0</strong>
+      <span>Paiements validés</span>
+    </div>
+    <div class="stat">
+      <strong id="totalExpenses">0</strong>
+      <span>Dépenses (FCFA)</span>
+    </div>
+  </section>
 
-<div class="announcement-box">
-<h3>📢 Annonces et Bonnes Nouvelles de l'Administration</h3>
-<p id="publicAnnouncement">
-Bienvenue sur le portail officiel de la Famille Bati.
-Consultez régulièrement cet espace.
-</p>
-<p class="small-note" id="announcementStatus">Chargement des annonces...</p>
-</div>
+  <section class="card">
+    <h2>📢 Annonce officielle</h2>
+    <div id="publicAnnouncement" class="announcement">
+      Aucune annonce pour le moment.
+    </div>
+  </section>
 
-<div class="stats-grid">
-<div class="stat-card">
-<h4>Caisse Nationale (Solde)</h4>
-<p id="totalBalance">0 FCFA</p>
-</div>
-<div class="stat-card">
-<h4>Total Cotisations perçues</h4>
-<p id="totalContributions">0 FCFA</p>
-</div>
-<div class="stat-card">
-<h4>Total Dépenses</h4>
-<p id="totalExpenses">0 FCFA</p>
-</div>
-</div>
+  <section class="card">
+    <h2>📋 Cotisations familiales 2027</h2>
+    <p>Chaque membre contribue à hauteur de <strong>1 000 FCFA par mois</strong>.</p>
+    <p class="small">Les statuts sont actualisés automatiquement après les opérations de l'administrateur.</p>
+    <div class="table-wrap">
+      <table>
+        <thead id="memberTableHead"></thead>
+        <tbody id="memberTableBody">
+          <tr><td>Chargement des membres...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-<div class="card" style="text-align:center;">
-<h3>🔍 Consultation Publique</h3>
-<p>Accédez aux informations de la famille :</p>
-<button class="action-btn" onclick="showHistoryModal('contributions')">📋 Paiements validés</button>
-<button class="action-btn" onclick="showHistoryModal('expenses')">📉 Historique des dépenses</button>
-<button class="action-btn" onclick="showHistoryModal('members')">👥 Liste des membres</button>
-</div>
+  <section class="card">
+    <h2>💰 Historique des paiements</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Membre</th><th>Mois</th><th>Montant</th>
+            <th>Statut</th><th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="paymentHistory">
+          <tr><td colspan="5">Chargement...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-<div class="card">
-<h3>👥 Suivi des Membres et Cotisations (1 000 FCFA / mois)</h3>
-<div style="overflow-x:auto;">
-<table>
-<thead>
-<tr id="membersTableHeader">
-<th>Nom du membre</th>
-</tr>
-</thead>
-<tbody id="publicMembersTableBody"></tbody>
-</table>
-</div>
-<p class="small-note">
-Les informations de cotisation affichées ici sont actuellement enregistrées sur cet appareil.
-</p>
-</div>
+  <section class="card">
+    <h2>💸 Historique des dépenses</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Motif</th><th>Montant</th><th>Date</th></tr>
+        </thead>
+        <tbody id="expenseHistory">
+          <tr><td colspan="3">Aucune dépense enregistrée.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-</div>
+  <section class="card">
+    <h2>🔐 Espace administrateur</h2>
+    <p>Accès réservé à l'administration de FAMILLE BATI.</p>
+    <button id="openLogin">Connexion administrateur</button>
+    <button id="logoutButton" class="gray" style="display:none">Déconnexion</button>
+    <p id="connectionMessage" class="small"></p>
+  </section>
 
-<!-- CONNEXION ADMIN -->
-<div id="adminLoginModal" class="modal">
-<div class="modal-content">
-<span class="close-modal" onclick="closeModals()">&times;</span>
-<h3>🔐 Espace Administrateur</h3>
-<p>Connectez-vous avec votre compte administrateur Firebase.</p>
+  <section class="card admin-panel" id="adminPanel">
+    <h2>⚙️ Tableau de bord administrateur</h2>
 
-<input type="email" id="adminEmailInput" placeholder="Adresse e-mail administrateur">
-<input type="password" id="adminPasswordInput" placeholder="Mot de passe Firebase">
+    <h3>📢 Publier une annonce</h3>
+    <textarea id="announcementInput" rows="3" placeholder="Écrire une annonce..."></textarea>
+    <button id="publishAnnouncement" class="gold">Publier l'annonce</button>
 
-<button class="action-btn" style="width:100%;" onclick="verifyAdminLogin()">
-Se connecter
-</button>
-<p id="loginMessage" class="small-note"></p>
-</div>
-</div>
+    <hr>
 
-<!-- TABLEAU ADMIN -->
-<div id="adminDashboardModal" class="modal">
-<div class="modal-content" style="max-width:700px;">
-<span class="close-modal" onclick="closeModals()">&times;</span>
+    <h3>👥 Ajouter un membre</h3>
+    <label>Nom complet</label>
+    <input id="memberName" placeholder="Nom et prénom du membre">
+    <button id="addMember">Ajouter le membre</button>
 
-<h3>⚙️ Panneau de Contrôle Administrateur</h3>
+    <hr>
 
-<div class="admin-section">
-<h4>🖼️ Modifier le logo</h4>
-<input type="file" id="logoFileInput" accept="image/*" onchange="updateLogo(event)">
-</div>
+    <h3>💰 Enregistrer un paiement</h3>
+    <label>Membre</label>
+    <select id="paymentMember"></select>
+    <label>Mois</label>
+    <select id="paymentMonth"></select>
+    <label>Montant (FCFA)</label>
+    <input id="paymentAmount" type="number" value="1000" min="1">
+    <button id="recordPayment" class="gold">Enregistrer en attente</button>
+    <p class="small">Un paiement enregistré reste en attente jusqu'à sa validation.</p>
 
-<div class="admin-section">
-<h4>📢 Publier une annonce pour les membres</h4>
-<textarea id="adminAnnouncementInput" placeholder="Écrire votre annonce ici..."></textarea>
-<button class="action-btn" onclick="saveAnnouncement()">Publier l'annonce</button>
-</div>
+    <h3>✅ Valider les paiements</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Membre</th><th>Mois</th><th>Montant</th><th>Statut</th><th>Action</th></tr>
+        </thead>
+        <tbody id="adminPaymentHistory"></tbody>
+      </table>
+    </div>
 
-<div class="admin-section">
-<h4>➕ Ajouter un nouveau membre</h4>
-<input type="text" id="newMemberName" placeholder="Nom et prénom du membre">
-<button class="action-btn" onclick="addMember()">Enregistrer le membre</button>
-</div>
+    <hr>
 
-<div class="admin-section">
-<h4>💳 Valider une cotisation (1 000 FCFA)</h4>
-<select id="paymentMemberSelect"></select>
-<select id="paymentMonthSelect"></select>
-<button class="action-btn" onclick="validatePayment()">Valider le paiement</button>
-</div>
+    <h3>💸 Enregistrer une dépense</h3>
+    <label>Motif de la dépense</label>
+    <input id="expenseReason" placeholder="Exemple : organisation">
+    <label>Montant (FCFA)</label>
+    <input id="expenseAmount" type="number" min="1" placeholder="Montant">
+    <button id="addExpense">Enregistrer la dépense</button>
 
-<div class="admin-section">
-<h4>📉 Enregistrer une dépense</h4>
-<input type="text" id="expenseMotif" placeholder="Motif de la dépense">
-<input type="number" id="expenseAmount" placeholder="Montant en FCFA">
-<input type="date" id="expenseDate">
-<button class="action-btn" onclick="addExpense()">Enregistrer la dépense</button>
-</div>
+    <hr>
 
-<button class="action-btn" style="background:var(--danger-color);width:100%;" onclick="logoutAdmin()">
-Fermer / Quitter l'Admin
-</button>
+    <h3>🖼️ Modifier le logo</h3>
+    <input id="logoFile" type="file" accept="image/*">
+    <button id="saveLogo">Mettre à jour le logo</button>
+    <p class="small">Choisis une image légère. Elle sera compressée avant son enregistrement.</p>
+  </section>
 
-</div>
-</div>
+</main>
 
-<!-- HISTORIQUES -->
-<div id="historyModal" class="modal">
-<div class="modal-content" style="max-width:700px;">
-<span class="close-modal" onclick="closeModals()">&times;</span>
-<h3 id="historyModalTitle"></h3>
-<div id="historyModalBody" style="max-height:400px;overflow-y:auto;"></div>
-</div>
+<footer>
+  <strong>FAMILLE BATI</strong>
+  <p>La famille, notre force et notre richesse.</p>
+  <small>© 2027 - Espace communautaire</small>
+</footer>
+
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h2>Connexion administrateur</h2>
+    <label>Adresse e-mail</label>
+    <input id="adminEmail" type="email" placeholder="Adresse e-mail">
+    <label>Mot de passe</label>
+    <input id="adminPassword" type="password" placeholder="Mot de passe">
+    <button id="loginButton" class="gold">Se connecter</button>
+    <button id="closeLogin" class="gray">Fermer</button>
+    <p id="loginMessage" class="small"></p>
+  </div>
 </div>
 
 <script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
 import {
- getAuth,
- signInWithEmailAndPassword,
- signOut,
- onAuthStateChanged
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
 import {
- getFirestore,
- doc,
- setDoc,
- onSnapshot,
- serverTimestamp
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  addDoc,
+  onSnapshot,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
 /* CONFIGURATION FIREBASE */
 const firebaseConfig = {
- apiKey: "AIzaSyA9PsOunMa_mTgraG6CoqqJztNzyts1y6M",
- authDomain: "famille-bati.firebaseapp.com",
- projectId: "famille-bati",
- storageBucket: "famille-bati.firebasestorage.app",
- messagingSenderId: "988957972487",
- appId: "1:988957972487:web:35a1b79fd1214d5b0572a2"
+  apiKey: "AIzaSyA9PsOunMa_mTgraG6CoqqJztNzyts1y6M",
+  authDomain: "famille-bati.firebaseapp.com",
+  projectId: "famille-bati",
+  storageBucket: "famille-bati.firebasestorage.app",
+  messagingSenderId: "988957972487",
+  appId: "1:988957972487:web:35a1b79fd1214d5b0572a2"
 };
 
-/* IDENTIFIANT ADMINISTRATEUR */
 const ADMIN_UID = "Ld9p1JLCasgZTSrT5qq5aooUmcq1";
+const YEAR = 2027;
+const MONTHS = [
+  "Janvier","Février","Mars","Avril","Mai","Juin",
+  "Juillet","Août","Septembre","Octobre","Novembre","Décembre"
+];
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const announcementRef = doc(db, "annonces", "actuelle");
 
-let adminConnected = false;
+let members = [];
+let payments = [];
+let expenses = [];
+let isAdmin = false;
 
-/* MOIS DE COTISATION */
-const months = [
-"Janvier 2027",
-"Février 2027",
-"Mars 2027",
-"Avril 2027",
-"Mai 2027",
-"Juin 2027",
-"Juillet 2027",
-"Août 2027",
-"Septembre 2027",
-"Octobre 2027",
-"Novembre 2027",
-"Décembre 2027"
-];
+const $ = id => document.getElementById(id);
 
-/* DONNÉES LOCALES */
-let appData;
-
-try {
- appData = JSON.parse(localStorage.getItem("familleBatiData")) || {};
-} catch(e) {
- appData = {};
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
 }
 
-appData.logo = appData.logo || "";
-appData.announcement = appData.announcement || "Bienvenue sur le portail officiel de la Famille Bati.";
-appData.members = appData.members || [];
-appData.expenses = appData.expenses || [];
-
-function saveData() {
- localStorage.setItem("familleBatiData", JSON.stringify(appData));
- renderApp();
+function money(value) {
+  return Number(value || 0).toLocaleString("fr-FR") + " FCFA";
 }
 
-/* INITIALISATION DES MOIS */
-const monthSelect = document.getElementById("paymentMonthSelect");
-months.forEach(month => {
- const option = document.createElement("option");
- option.value = month;
- option.textContent = month;
- monthSelect.appendChild(option);
-});
-
-/* AFFICHAGE */
-function renderApp() {
-
- if(appData.logo) {
-  document.getElementById("mainLogo").src = appData.logo;
- }
-
- const tbody = document.getElementById("publicMembersTableBody");
- const header = document.getElementById("membersTableHeader");
- const paymentSelect = document.getElementById("paymentMemberSelect");
-
- tbody.innerHTML = "";
- header.innerHTML = "<th>Nom du membre</th>";
-
- months.forEach(month => {
-  const th = document.createElement("th");
-  th.textContent = month.replace(" 2027","");
-  header.appendChild(th);
- });
-
- const statusTh = document.createElement("th");
- statusTh.textContent = "Statut";
- header.appendChild(statusTh);
-
- paymentSelect.innerHTML = "";
-
- if(appData.members.length === 0) {
-  const tr = document.createElement("tr");
-  const td = document.createElement("td");
-  td.colSpan = 14;
-  td.textContent = "Aucun membre enregistré pour le moment.";
-  tr.appendChild(td);
-  tbody.appendChild(tr);
- } else {
-
-  appData.members.forEach(member => {
-
-   member.payments = member.payments || {};
-
-   const tr = document.createElement("tr");
-   const nameCell = document.createElement("td");
-   nameCell.textContent = member.name;
-   tr.appendChild(nameCell);
-
-   let paidCount = 0;
-
-   months.forEach(month => {
-    const td = document.createElement("td");
-
-    if(member.payments[month]) {
-     td.innerHTML = '<span class="badge-success">Payé</span>';
-     paidCount++;
-    } else {
-     td.innerHTML = '<span class="badge-warning">En attente</span>';
-    }
-
-    tr.appendChild(td);
-   });
-
-   const status = document.createElement("td");
-   status.textContent = paidCount === 12 ? "À jour" : paidCount + "/12";
-   tr.appendChild(status);
-   tbody.appendChild(tr);
-
-   const option = document.createElement("option");
-   option.value = member.id;
-   option.textContent = member.name;
-   paymentSelect.appendChild(option);
-  });
- }
-
- let totalCotisations = 0;
- appData.members.forEach(member => {
-  Object.values(member.payments || {}).forEach(paid => {
-   if(paid) totalCotisations += 1000;
-  });
- });
-
- let totalDepenses = 0;
- appData.expenses.forEach(expense => {
-  totalDepenses += Number(expense.amount) || 0;
- });
-
- document.getElementById("totalContributions").textContent =
- totalCotisations.toLocaleString("fr-FR") + " FCFA";
-
- document.getElementById("totalExpenses").textContent =
- totalDepenses.toLocaleString("fr-FR") + " FCFA";
-
- document.getElementById("totalBalance").textContent =
- (totalCotisations - totalDepenses).toLocaleString("fr-FR") + " FCFA";
+function dateText(value) {
+  if (!value) return "—";
+  const d = value.toDate ? value.toDate() : new Date(value);
+  if (isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("fr-FR");
 }
 
-/* ANNONCES FIREBASE : LECTURE PUBLIQUE EN TEMPS RÉEL */
-onSnapshot(announcementRef, snapshot => {
+function statusHTML(status) {
+  if (status === "valide") return '<span class="status valid">Validé</span>';
+  if (status === "en_attente") return '<span class="status pending">En attente</span>';
+  if (status === "refuse") return '<span class="status refused">Refusé</span>';
+  return '<span class="status unpaid">Non payé</span>';
+}
 
- if(snapshot.exists()) {
-  const data = snapshot.data();
+function showMessage(id, message) {
+  $(id).textContent = message;
+}
 
-  appData.announcement = data.message || "";
-  document.getElementById("publicAnnouncement").textContent =
-  appData.announcement;
+/* AFFICHAGE PUBLIC */
+function renderMembers() {
+  $("totalMembers").textContent = members.length;
 
- } else {
-  document.getElementById("publicAnnouncement").textContent =
-  appData.announcement;
- }
+  $("memberTableHead").innerHTML =
+    "<tr><th>Membre</th>" +
+    MONTHS.map(m => `<th>${m.substring(0,3)}</th>`).join("") +
+    "</tr>";
 
- document.getElementById("announcementStatus").textContent =
- "Annonces synchronisées avec Firebase.";
+  if (!members.length) {
+    $("memberTableBody").innerHTML =
+      '<tr><td colspan="13">Aucun membre enregistré.</td></tr>';
+    updateMemberSelect();
+    return;
+  }
 
-}, error => {
+  $("memberTableBody").innerHTML = members.map(member => {
+    const cells = MONTHS.map((month, index) => {
+      const payment = payments.find(p =>
+        p.membreId === member.id && Number(p.mois) === index + 1
+        && Number(p.annee) === YEAR
+      );
+      return `<td>${statusHTML(payment ? payment.statut : "non_paye")}</td>`;
+    }).join("");
 
- console.error("Erreur annonce :", error);
+    return `<tr><td><strong>${escapeHTML(member.nom)}</strong></td>${cells}</tr>`;
+  }).join("");
 
- document.getElementById("announcementStatus").textContent =
- "Impossible de charger les annonces pour le moment.";
+  updateMemberSelect();
+}
 
-});
+function updateMemberSelect() {
+  $("paymentMember").innerHTML = members.length
+    ? members.map(m => `<option value="${escapeHTML(m.id)}">${escapeHTML(m.nom)}</option>`).join("")
+    : '<option value="">Aucun membre</option>';
+}
 
-/* AUTHENTIFICATION FIREBASE */
+function renderPayments() {
+  const sorted = [...payments].sort((a,b) =>
+    Number(b.mois || 0) - Number(a.mois || 0)
+  );
+
+  $("totalValidated").textContent =
+    payments.filter(p => p.statut === "valide").length;
+
+  $("paymentHistory").innerHTML = sorted.length
+    ? sorted.map(p => `
+      <tr>
+        <td>${escapeHTML(p.membreNom)}</td>
+        <td>${MONTHS[Number(p.mois)-1] || "—"} ${p.annee || YEAR}</td>
+        <td>${money(p.montant)}</td>
+        <td>${statusHTML(p.statut)}</td>
+        <td>${dateText(p.dateValidation || p.dateCreation)}</td>
+      </tr>
+    `).join("")
+    : '<tr><td colspan="5">Aucun paiement enregistré.</td></tr>';
+
+  renderAdminPayments();
+  renderMembers();
+}
+
+function renderAdminPayments() {
+  if (!isAdmin) return;
+
+  $("adminPaymentHistory").innerHTML = payments.length
+    ? [...payments].reverse().map(p => `
+      <tr>
+        <td>${escapeHTML(p.membreNom)}</td>
+        <td>${MONTHS[Number(p.mois)-1] || "—"}</td>
+        <td>${money(p.montant)}</td>
+        <td>${statusHTML(p.statut)}</td>
+        <td>
+          ${p.statut === "en_attente" ? `
+            <button class="green" data-action="validate" data-id="${escapeHTML(p.id)}">Valider</button>
+            <button class="red" data-action="refuse" data-id="${escapeHTML(p.id)}">Refuser</button>
+          ` : "—"}
+        </td>
+      </tr>
+    `).join("")
+    : '<tr><td colspan="5">Aucun paiement.</td></tr>';
+}
+
+function renderExpenses() {
+  $("totalExpenses").textContent = money(
+    expenses.reduce((sum,e) => sum + Number(e.montant || 0), 0)
+  );
+
+  $("expenseHistory").innerHTML = expenses.length
+    ? [...expenses].reverse().map(e => `
+      <tr>
+        <td>${escapeHTML(e.motif)}</td>
+        <td>${money(e.montant)}</td>
+        <td>${dateText(e.date)}</td>
+      </tr>
+    `).join("")
+    : '<tr><td colspan="3">Aucune dépense enregistrée.</td></tr>';
+}
+
+/* SYNCHRONISATION EN TEMPS RÉEL */
+onSnapshot(collection(db, "membres"), snapshot => {
+  members = snapshot.docs.map(d => ({id:d.id, ...d.data()}));
+  members.sort((a,b) => String(a.nom).localeCompare(String(b.nom)));
+  renderMembers();
+}, error => console.error("Erreur membres :", error));
+
+onSnapshot(collection(db, "paiements"), snapshot => {
+  payments = snapshot.docs.map(d => ({id:d.id, ...d.data()}))
+    .filter(p => Number(p.annee) === YEAR);
+  renderPayments();
+}, error => console.error("Erreur paiements :", error));
+
+onSnapshot(collection(db, "depenses"), snapshot => {
+  expenses = snapshot.docs.map(d => ({id:d.id, ...d.data()}));
+  renderExpenses();
+}, error => console.error("Erreur dépenses :", error));
+
+onSnapshot(doc(db, "annonces", "actuelle"), snapshot => {
+  $("publicAnnouncement").textContent =
+    snapshot.exists() && snapshot.data().texte
+      ? snapshot.data().texte
+      : "Aucune annonce pour le moment.";
+}, error => console.error("Erreur annonce :", error));
+
+onSnapshot(doc(db, "parametres", "logo"), snapshot => {
+  if (snapshot.exists() && snapshot.data().image) {
+    $("siteLogo").src = snapshot.data().image;
+  } else {
+    $("siteLogo").src = "https://placehold.co/200x200/21180F/D4AF37?text=BATI";
+  }
+}, error => console.error("Erreur logo :", error));
+
+/* AUTHENTIFICATION ADMINISTRATEUR */
+function showAdmin() {
+  isAdmin = true;
+  $("adminPanel").style.display = "block";
+  $("logoutButton").style.display = "inline-block";
+  $("openLogin").style.display = "none";
+  $("loginModal").style.display = "none";
+  showMessage("connectionMessage", "Administrateur connecté.");
+  renderAdminPayments();
+}
+
+function hideAdmin() {
+  isAdmin = false;
+  $("adminPanel").style.display = "none";
+  $("logoutButton").style.display = "none";
+  $("openLogin").style.display = "inline-block";
+  showMessage("connectionMessage", "Vous êtes déconnecté.");
+}
+
 onAuthStateChanged(auth, async user => {
-
- if(user && user.uid === ADMIN_UID) {
-
-  adminConnected = true;
-  document.getElementById("adminLoginModal").style.display = "none";
-  document.getElementById("adminDashboardModal").style.display = "flex";
-
- } else {
-
-  adminConnected = false;
-
-  if(user) {
-   await signOut(auth);
-   alert("Ce compte n'est pas autorisé à administrer FAMILLE BATI.");
+  if (user && user.uid === ADMIN_UID) {
+    showAdmin();
+  } else {
+    hideAdmin();
+    if (user) await signOut(auth);
   }
-
-  document.getElementById("adminDashboardModal").style.display = "none";
- }
 });
 
-/* CONNEXION ADMIN */
-async function verifyAdminLogin() {
+$("openLogin").addEventListener("click", () => {
+  $("loginModal").style.display = "block";
+});
 
- const email = document.getElementById("adminEmailInput").value.trim();
- const password = document.getElementById("adminPasswordInput").value;
- const message = document.getElementById("loginMessage");
+$("closeLogin").addEventListener("click", () => {
+  $("loginModal").style.display = "none";
+});
 
- if(!email || !password) {
-  message.textContent = "Veuillez saisir votre e-mail et votre mot de passe.";
-  return;
- }
+$("loginButton").addEventListener("click", async () => {
+  const email = $("adminEmail").value.trim();
+  const password = $("adminPassword").value;
 
- message.textContent = "Connexion en cours...";
-
- try {
-
-  const result = await signInWithEmailAndPassword(auth,email,password);
-
-  if(result.user.uid !== ADMIN_UID) {
-   await signOut(auth);
-   message.textContent = "Compte non autorisé.";
-   return;
+  if (!email || !password) {
+    showMessage("loginMessage", "Entre ton adresse e-mail et ton mot de passe.");
+    return;
   }
 
-  message.textContent = "Connexion réussie.";
+  $("loginButton").disabled = true;
+  showMessage("loginMessage", "Connexion en cours...");
 
- } catch(error) {
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
 
-  console.error(error);
-  message.textContent = "Connexion impossible. Vérifiez votre e-mail et votre mot de passe.";
- }
-}
-
-/* DÉCONNEXION */
-async function logoutAdmin() {
- await signOut(auth);
- adminConnected = false;
- closeModals();
-}
-
-/* PUBLICATION D'ANNONCE DANS FIREBASE */
-async function saveAnnouncement() {
-
- if(!adminConnected || !auth.currentUser || auth.currentUser.uid !== ADMIN_UID) {
-  alert("Vous devez être connecté comme administrateur.");
-  return;
- }
-
- const message = document.getElementById("adminAnnouncementInput").value.trim();
-
- if(!message) {
-  alert("Veuillez écrire une annonce.");
-  return;
- }
-
- try {
-
-  await setDoc(announcementRef, {
-   message: message,
-   updatedAt: serverTimestamp()
-  });
-
-  document.getElementById("adminAnnouncementInput").value = "";
-  alert("Annonce publiée avec succès. Tous les visiteurs pourront la voir.");
-
- } catch(error) {
-
-  console.error(error);
-  alert("Erreur lors de la publication. Vérifiez votre connexion Firebase.");
- }
-}
-
-/* FENÊTRES */
-function openAdminLogin() {
- document.getElementById("adminLoginModal").style.display = "flex";
-}
-
-function closeModals() {
- document.querySelectorAll(".modal").forEach(modal => {
-  modal.style.display = "none";
- });
-}
-
-/* LOGO */
-function updateLogo(event) {
-
- if(!adminConnected) {
-  alert("Connexion administrateur nécessaire.");
-  return;
- }
-
- const file = event.target.files[0];
- if(!file) return;
-
- const reader = new FileReader();
-
- reader.onload = function() {
-  appData.logo = reader.result;
-  saveData();
-  alert("Logo modifié sur cet appareil.");
- };
-
- reader.readAsDataURL(file);
-}
-
-/* AJOUT MEMBRE */
-function addMember() {
-
- if(!adminConnected) return alert("Connexion administrateur nécessaire.");
-
- const name = document.getElementById("newMemberName").value.trim();
-
- if(!name) return alert("Veuillez saisir le nom du membre.");
-
- appData.members.push({
-  id: Date.now().toString(),
-  name: name,
-  payments: {}
- });
-
- document.getElementById("newMemberName").value = "";
- saveData();
- alert("Membre ajouté.");
-}
-
-/* VALIDATION PAIEMENT */
-function validatePayment() {
-
- if(!adminConnected) return alert("Connexion administrateur nécessaire.");
-
- const memberId = document.getElementById("paymentMemberSelect").value;
- const month = document.getElementById("paymentMonthSelect").value;
-
- const member = appData.members.find(m => m.id === memberId);
-
- if(!member) return alert("Sélectionnez un membre.");
-
- member.payments = member.payments || {};
-
- if(member.payments[month]) {
-  return alert("Ce paiement est déjà validé.");
- }
-
- member.payments[month] = true;
- saveData();
-
- alert("Paiement de 1 000 FCFA validé pour " + member.name + " (" + month + ").");
-}
-
-/* AJOUT DÉPENSE */
-function addExpense() {
-
- if(!adminConnected) return alert("Connexion administrateur nécessaire.");
-
- const motif = document.getElementById("expenseMotif").value.trim();
- const amount = Number(document.getElementById("expenseAmount").value);
- const date = document.getElementById("expenseDate").value;
-
- if(!motif || !amount || amount <= 0 || !date) {
-  alert("Veuillez remplir correctement tous les champs.");
-  return;
- }
-
- appData.expenses.push({motif,amount,date});
-
- document.getElementById("expenseMotif").value = "";
- document.getElementById("expenseAmount").value = "";
- document.getElementById("expenseDate").value = "";
-
- saveData();
- alert("Dépense enregistrée sur cet appareil.");
-}
-
-/* HISTORIQUES PUBLICS */
-function showHistoryModal(type) {
-
- const modal = document.getElementById("historyModal");
- const title = document.getElementById("historyModalTitle");
- const body = document.getElementById("historyModalBody");
-
- body.innerHTML = "";
-
- if(type === "contributions") {
-
-  title.textContent = "📋 Paiements validés";
-
-  const table = document.createElement("table");
-  table.innerHTML = "<tr><th>Membre</th><th>Mois</th><th>Montant</th></tr>";
-
-  let count = 0;
-
-  appData.members.forEach(member => {
-   Object.keys(member.payments || {}).forEach(month => {
-
-    if(member.payments[month]) {
-     const tr = document.createElement("tr");
-
-     [member.name,month,"1 000 FCFA"].forEach(value => {
-      const td = document.createElement("td");
-      td.textContent = value;
-      tr.appendChild(td);
-     });
-
-     table.appendChild(tr);
-     count++;
+    if (result.user.uid !== ADMIN_UID) {
+      await signOut(auth);
+      showMessage("loginMessage", "Ce compte n'est pas autorisé.");
+    } else {
+      showAdmin();
+      $("adminPassword").value = "";
     }
-   });
-  });
+  } catch (error) {
+    showMessage("loginMessage", "Connexion impossible : vérifie tes identifiants.");
+    console.error(error);
+  } finally {
+    $("loginButton").disabled = false;
+  }
+});
 
-  if(count) body.appendChild(table);
-  else body.textContent = "Aucun paiement validé pour le moment.";
+$("logoutButton").addEventListener("click", async () => {
+  await signOut(auth);
+  hideAdmin();
+});
 
- } else if(type === "expenses") {
+/* PUBLICATION D'ANNONCE */
+$("publishAnnouncement").addEventListener("click", async () => {
+  if (!isAdmin) return alert("Accès refusé.");
+  const texte = $("announcementInput").value.trim();
+  if (!texte) return alert("Écris d'abord une annonce.");
 
-  title.textContent = "📉 Historique des dépenses";
-
-  if(appData.expenses.length === 0) {
-   body.textContent = "Aucune dépense enregistrée.";
-  } else {
-
-   const table = document.createElement("table");
-   table.innerHTML = "<tr><th>Date</th><th>Motif</th><th>Montant</th></tr>";
-
-   appData.expenses.forEach(expense => {
-    const tr = document.createElement("tr");
-
-    [expense.date,expense.motif,Number(expense.amount).toLocaleString("fr-FR")+" FCFA"].forEach(value => {
-     const td = document.createElement("td");
-     td.textContent = value;
-     tr.appendChild(td);
+  try {
+    await setDoc(doc(db, "annonces", "actuelle"), {
+      texte,
+      date: serverTimestamp()
     });
+    $("announcementInput").value = "";
+    alert("Annonce publiée pour tous les membres !");
+  } catch (error) {
+    alert("Erreur lors de la publication.");
+    console.error(error);
+  }
+});
 
-    table.appendChild(tr);
-   });
+/* AJOUT D'UN MEMBRE */
+$("addMember").addEventListener("click", async () => {
+  if (!isAdmin) return alert("Accès refusé.");
+  const nom = $("memberName").value.trim();
+  if (!nom) return alert("Entre le nom du membre.");
 
-   body.appendChild(table);
+  try {
+    await addDoc(collection(db, "membres"), {
+      nom,
+      dateAjout: serverTimestamp()
+    });
+    $("memberName").value = "";
+    alert("Membre ajouté !");
+  } catch (error) {
+    alert("Impossible d'ajouter le membre.");
+    console.error(error);
+  }
+});
+
+/* ENREGISTREMENT D'UN PAIEMENT */
+$("paymentMonth").innerHTML = MONTHS.map((m,i) =>
+  `<option value="${i+1}">${m}</option>`
+).join("");
+
+$("recordPayment").addEventListener("click", async () => {
+  if (!isAdmin) return alert("Accès refusé.");
+
+  const membreId = $("paymentMember").value;
+  const mois = Number($("paymentMonth").value);
+  const montant = Number($("paymentAmount").value);
+  const member = members.find(m => m.id === membreId);
+
+  if (!member) return alert("Choisis un membre.");
+  if (!montant || montant < 1) return alert("Montant invalide.");
+
+  const existing = payments.find(p =>
+    p.membreId === membreId && Number(p.mois) === mois
+    && Number(p.annee) === YEAR
+  );
+
+  if (existing && existing.statut === "valide") {
+    return alert("Ce paiement est déjà validé.");
   }
 
- } else if(type === "members") {
+  const paymentId = `${membreId}_${YEAR}_${mois}`;
 
-  title.textContent = "👥 Liste officielle des membres";
-   
-     if(appData.members.length === 0) {
-   body.textContent = "Aucun membre inscrit.";
-  } else {
-
-   const list = document.createElement("ul");
-
-   appData.members.forEach(member => {
-    const li = document.createElement("li");
-    li.textContent = "👤 " + member.name;
-    li.style.padding = "8px";
-    list.appendChild(li);
-   });
-
-   body.appendChild(list);
+  try {
+    await setDoc(doc(db, "paiements", paymentId), {
+      membreId,
+      membreNom: member.nom,
+      mois,
+      annee: YEAR,
+      montant,
+      statut: "en_attente",
+      dateCreation: serverTimestamp(),
+      dateValidation: null
+    });
+    alert("Paiement enregistré en attente de validation.");
+  } catch (error) {
+    alert("Erreur lors de l'enregistrement du paiement.");
+    console.error(error);
   }
- }
+});
 
- modal.style.display = "flex";
-}
+/* VALIDATION OU REFUS */
+$("adminPaymentHistory").addEventListener("click", async event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button || !isAdmin) return;
 
-/* FONCTIONS ACCESSIBLES AUX BOUTONS HTML */
-window.openAdminLogin = openAdminLogin;
-window.closeModals = closeModals;
-window.verifyAdminLogin = verifyAdminLogin;
-window.logoutAdmin = logoutAdmin;
-window.saveAnnouncement = saveAnnouncement;
-window.updateLogo = updateLogo;
-window.addMember = addMember;
-window.validatePayment = validatePayment;
-window.addExpense = addExpense;
-window.showHistoryModal = showHistoryModal;
+  const payment = payments.find(p => p.id === button.dataset.id);
+  if (!payment) return;
 
-/* LANCEMENT */
-renderApp();
+  const action = button.dataset.action;
+  const confirmation = action === "validate"
+    ? "Confirmer la validation de ce paiement ?"
+    : "Confirmer le refus de ce paiement ?";
+
+  if (!confirm(confirmation)) return;
+
+  try {
+    await setDoc(doc(db, "paiements", payment.id), {
+      statut: action === "validate" ? "valide" : "refuse",
+      dateValidation: serverTimestamp()
+    }, {merge:true});
+
+    alert(action === "validate" ? "Paiement validé !" : "Paiement refusé.");
+  } catch (error) {
+    alert("Impossible de modifier le statut.");
+    console.error(error);
+  }
+});
+
+/* AJOUT D'UNE DÉPENSE */
+$("addExpense").addEventListener("click", async () => {
+  if (!isAdmin) return alert("Accès refusé.");
+
+  const motif = $("expenseReason").value.trim();
+  const montant = Number($("expenseAmount").value);
+
+  if (!motif || !montant || montant < 1) {
+    return alert("Remplis le motif et le montant.");
+  }
+
+  try {
+    await addDoc(collection(db, "depenses"), {
+      motif,
+      montant,
+      date: serverTimestamp()
+    });
+    $("expenseReason").value = "";
+    $("expenseAmount").value = "";
+    alert("Dépense enregistrée !");
+  } catch (error) {
+    alert("Erreur lors de l'enregistrement.");
+    console.error(error);
+  }
+});
+
+/* LOGO : COMPRESSION AVANT ENREGISTREMENT */
+$("saveLogo").addEventListener("click", async () => {
+  if (!isAdmin) return alert("Accès refusé.");
+
+  const file = $("logoFile").files[0];
+  if (!file) return alert("Choisis d'abord une image.");
+
+  try {
+    const image = new Image();
+    const objectURL = URL.createObjectURL(file);
+
+    image.onload = async () => {
+      const canvas = document.createElement("canvas");
+      const max = 450;
+      const ratio = Math.min(1, max / Math.max(image.width, image.height));
+
+      canvas.width = Math.round(image.width * ratio);
+      canvas.height = Math.round(image.height * ratio);
+
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+      const data = canvas.toDataURL("image/jpeg", 0.65);
+      URL.revokeObjectURL(objectURL);
+
+      try {
+        await setDoc(doc(db, "parametres", "logo"), {
+          image: data,
+          dateModification: serverTimestamp()
+        });
+        alert("Logo mis à jour pour tous les membres !");
+        $("logoFile").value = "";
+      } catch (error) {
+        alert("Erreur : l'image est peut-être trop volumineuse.");
+        console.error(error);
+      }
+    };
+
+    image.onerror = () => {
+      URL.revokeObjectURL(objectURL);
+      alert("Impossible de lire cette image.");
+    };
+
+    image.src = objectURL;
+  } catch (error) {
+    alert("Erreur lors du traitement du logo.");
+    console.error(error);
+  }
+});
 
 </script>
 </body>
