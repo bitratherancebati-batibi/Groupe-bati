@@ -1,429 +1,854 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAMILLE BATI - Espace Communautaire</title>
-    <style>
-        :root {
-            --primary-color: #8B5A2B;
-            --secondary-color: #D4AF37;
-            --dark-color: #2C2C2C;
-            --light-color: #F9F6F0;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--light-color); color: var(--dark-color); line-height: 1.6; }
-        header { background: linear-gradient(135deg, #2C2C2C, #4A4A4A); color: white; text-align: center; padding: 20px; position: relative; border-bottom: 4px solid var(--secondary-color); }
-        .logo-container { margin-bottom: 10px; }
-        .logo-container img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--secondary-color); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
-        h1 { font-size: 1.8rem; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 1px; }
-        p.subtitle { font-size: 0.95rem; opacity: 0.9; }
-        
-        /* Bouton Admin discret */
-        .admin-trigger { position: absolute; top: 15px; right: 15px; background: var(--secondary-color); color: var(--dark-color); border: none; padding: 8px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .admin-trigger:hover { background: #b8972e; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAMILLE BATI - Espace Communautaire</title>
 
-        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
-        
-        /* Cartes d'information */
-        .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--primary-color); }
-        .card h3 { color: var(--primary-color); margin-bottom: 12px; border-bottom: 2px solid var(--light-color); padding-bottom: 8px; }
-        
-        /* Tableau d'annonces */
-        .announcement-box { background: #fff8e1; border-left: 5px solid var(--secondary-color); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        
-        /* Statistiques financières */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .stat-card { background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-top: 3px solid var(--secondary-color); }
-        .stat-card h4 { font-size: 0.9rem; color: #666; }
-        .stat-card p { font-size: 1.4rem; font-weight: bold; color: var(--primary-color); margin-top: 5px; }
-
-        /* Boutons et formulaires */
-        button.action-btn { background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; margin: 5px 0; transition: background 0.3s; }
-        button.action-btn:hover { background: #6b431e; }
-        input, select, textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; background: white; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: var(--primary-color); color: white; }
-        
-        /* Modal Admin */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; padding: 25px; border-radius: 10px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; position: relative; }
-        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #666; }
-
-        .badge-success { background: var(--success-color); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
-        .badge-warning { background: #ffc107; color: #333; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
-        
-        .ai-advice { background: #e8f4fd; border-left: 5px solid #2196F3; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-style: italic; }
-    </style>
+<style>
+:root {
+ --primary-color:#8B5A2B;
+ --secondary-color:#D4AF37;
+ --dark-color:#2C2C2C;
+ --light-color:#F9F6F0;
+ --success-color:#28a745;
+ --danger-color:#dc3545;
+}
+* {
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+ font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+body {
+ background:var(--light-color);
+ color:var(--dark-color);
+ line-height:1.6;
+}
+header {
+ background:linear-gradient(135deg,#2C2C2C,#4A4A4A);
+ color:white;
+ text-align:center;
+ padding:20px;
+ position:relative;
+ border-bottom:4px solid var(--secondary-color);
+}
+.logo-container {margin-bottom:10px;}
+.logo-container img {
+ width:140px;
+ height:140px;
+ border-radius:50%;
+ object-fit:cover;
+ border:3px solid var(--secondary-color);
+}
+h1 {
+ font-size:1.8rem;
+ color:var(--secondary-color);
+ text-transform:uppercase;
+}
+.subtitle {font-size:.95rem;}
+.admin-trigger {
+ position:absolute;
+ top:15px;
+ right:15px;
+ background:var(--secondary-color);
+ color:var(--dark-color);
+ border:0;
+ padding:8px 15px;
+ font-weight:bold;
+ border-radius:5px;
+ cursor:pointer;
+}
+.container {
+ max-width:1100px;
+ margin:20px auto;
+ padding:0 15px;
+}
+.card {
+ background:white;
+ border-radius:10px;
+ padding:20px;
+ margin-bottom:20px;
+ box-shadow:0 4px 10px rgba(0,0,0,.05);
+ border-left:5px solid var(--primary-color);
+}
+.card h3 {
+ color:var(--primary-color);
+ margin-bottom:12px;
+ border-bottom:2px solid var(--light-color);
+ padding-bottom:8px;
+}
+.announcement-box {
+ background:#fff8e1;
+ border-left:5px solid var(--secondary-color);
+ padding:15px;
+ border-radius:8px;
+ margin-bottom:20px;
+}
+.stats-grid {
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+ gap:15px;
+ margin-bottom:20px;
+}
+.stat-card {
+ background:white;
+ padding:15px;
+ border-radius:8px;
+ text-align:center;
+ border-top:3px solid var(--secondary-color);
+}
+.stat-card h4 {font-size:.9rem;color:#666;}
+.stat-card p {
+ font-size:1.3rem;
+ font-weight:bold;
+ color:var(--primary-color);
+}
+button.action-btn {
+ background:var(--primary-color);
+ color:white;
+ border:0;
+ padding:10px 20px;
+ border-radius:5px;
+ cursor:pointer;
+ font-size:1rem;
+ margin:5px 0;
+}
+button.action-btn:hover {background:#6b431e;}
+input,select,textarea {
+ width:100%;
+ padding:10px;
+ margin:8px 0;
+ border:1px solid #ccc;
+ border-radius:5px;
+ font-size:1rem;
+}
+table {
+ width:100%;
+ border-collapse:collapse;
+ margin-top:10px;
+ font-size:.85rem;
+ background:white;
+}
+th,td {
+ padding:9px;
+ text-align:center;
+ border-bottom:1px solid #ddd;
+ white-space:nowrap;
+}
+th {background:var(--primary-color);color:white;}
+.modal {
+ display:none;
+ position:fixed;
+ inset:0;
+ width:100%;
+ height:100%;
+ background:rgba(0,0,0,.6);
+ justify-content:center;
+ align-items:center;
+ z-index:1000;
+ padding:10px;
+}
+.modal-content {
+ background:white;
+ padding:25px;
+ border-radius:10px;
+ width:95%;
+ max-width:500px;
+ max-height:90vh;
+ overflow-y:auto;
+ position:relative;
+}
+.close-modal {
+ position:absolute;
+ top:10px;
+ right:15px;
+ font-size:1.5rem;
+ cursor:pointer;
+}
+.badge-success {
+ background:var(--success-color);
+ color:white;
+ padding:4px 8px;
+ border-radius:4px;
+}
+.badge-warning {
+ background:#ffc107;
+ color:#333;
+ padding:4px 8px;
+ border-radius:4px;
+}
+.ai-advice {
+ background:#e8f4fd;
+ border-left:5px solid #2196F3;
+ padding:15px;
+ border-radius:8px;
+ margin-bottom:20px;
+}
+.admin-section {
+ background:#f4f4f4;
+ padding:15px;
+ border-radius:5px;
+ margin-bottom:15px;
+}
+.small-note {
+ font-size:.8rem;
+ color:#666;
+ margin-top:8px;
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <button class="admin-trigger" onclick="openAdminLogin()">BATI</button>
-        <div class="logo-container">
-            <img id="mainLogo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><circle cx='70' cy='70' r='70' fill='%23D4AF37'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%232C2C2C' font-weight='bold'>BATI</text></svg>" alt="Logo Famille Bati">
-        </div>
-        <h1>Famille BATI</h1>
-        <p class="subtitle">Plus qu'un nom, une famille toujours unie</p>
-    </header>
+<header>
+<button class="admin-trigger" onclick="openAdminLogin()">BATI</button>
 
-    <div class="container">
+<div class="logo-container">
+<img id="mainLogo"
+src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><circle cx='70' cy='70' r='70' fill='%23D4AF37'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%232C2C2C' font-weight='bold'>BATI</text></svg>"
+alt="Logo Famille Bati">
+</div>
 
-        <!-- Conseil Intelligent IA -->
-        <div class="ai-advice" id="aiAdviceBox">
-            🤖 **Conseil IA Famille Bati :** "La régularité dans la cotisation de 1 000 FCFA par mois (débutant en janvier 2027) est la clé de notre autonomie et de notre force collective. Pensez à régler vos contributions à temps pour soutenir les projets de la famille !"
-        </div>
+<h1>Famille BATI</h1>
+<p class="subtitle">Plus qu'un nom, une famille toujours unie</p>
+</header>
 
-        <!-- Tableau d'annonces administratives -->
-        <div class="announcement-box">
-            <h3>📢 Annonces et Bonnes Nouvelles de l'Administration</h3>
-            <p id="publicAnnouncement">Bienvenue sur le portail officiel de la Famille Bati. Consultez régulièrement cet espace pour suivre l'actualité et l'évolution de notre caisse commune.</p>
-        </div>
+<div class="container">
 
-        <!-- Résumé Financier / Caisse Nationale -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h4>Caisse Nationale (Solde)</h4>
-                <p id="totalBalance">0 FCFA</p>
-            </div>
-            <div class="stat-card">
-                <h4>Total Cotisations perçues</h4>
-                <p id="totalContributions">0 FCFA</p>
-            </div>
-            <div class="stat-card">
-                <h4>Total Dépenses</h4>
-                <p id="totalExpenses">0 FCFA</p>
-            </div>
-        </div>
+<div class="ai-advice" id="aiAdviceBox">
+🤖 <strong>Conseil Famille BATI :</strong>
+La régularité dans la cotisation de 1 000 FCFA par mois,
+à partir de janvier 2027, est la clé de notre autonomie
+et de notre force collective.
+</div>
 
-        <!-- Boutons de Consultation Historique pour les Membres -->
-        <div class="card" style="text-align: center;">
-            <h3>🔍 Consultation Publique</h3>
-            <p>Accédez en un clic à toute la transparence de notre gestion financière :</p>
-            <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button class="action-btn" onclick="showHistoryModal('contributions')">📋 Voir les Paiements Validés</button>
-                <button class="action-btn" onclick="showHistoryModal('expenses')">📉 Voir l'Historique des Dépenses</button>
-                <button class="action-btn" onclick="showHistoryModal('members')">👥 Liste des Membres</button>
-            </div>
-        </div>
+<div class="announcement-box">
+<h3>📢 Annonces et Bonnes Nouvelles de l'Administration</h3>
+<p id="publicAnnouncement">
+Bienvenue sur le portail officiel de la Famille Bati.
+Consultez régulièrement cet espace.
+</p>
+<p class="small-note" id="announcementStatus">Chargement des annonces...</p>
+</div>
 
-        <!-- Liste des membres et état des cotisations vue publique -->
-        <div class="card">
-            <h3>👥 Suivi des Membres & Cotisations (1000 FCFA / Mois)</h3>
-            <div style="overflow-x: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nom du Membre</th>
-                            <th>Janv 2027</th>
-                            <th>Fév 2027</th>
-                            <th>Mars 2027</th>
-                            <th>Statut Global</th>
-                        </tr>
-                     hostages>
-                        <tr id="noMemberRow"><td colspan="5" style="text-align: center;">Aucun membre enregistré pour le moment.</td></tr>
-                    </thead>
-                    <tbody id="publicMembersTableBody">
-                        <!-- Dynamique -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="stats-grid">
+<div class="stat-card">
+<h4>Caisse Nationale (Solde)</h4>
+<p id="totalBalance">0 FCFA</p>
+</div>
+<div class="stat-card">
+<h4>Total Cotisations perçues</h4>
+<p id="totalContributions">0 FCFA</p>
+</div>
+<div class="stat-card">
+<h4>Total Dépenses</h4>
+<p id="totalExpenses">0 FCFA</p>
+</div>
+</div>
 
-    </div>
+<div class="card" style="text-align:center;">
+<h3>🔍 Consultation Publique</h3>
+<p>Accédez aux informations de la famille :</p>
+<button class="action-btn" onclick="showHistoryModal('contributions')">📋 Paiements validés</button>
+<button class="action-btn" onclick="showHistoryModal('expenses')">📉 Historique des dépenses</button>
+<button class="action-btn" onclick="showHistoryModal('members')">👥 Liste des membres</button>
+</div>
 
-    <!-- MODAL CONNEXION ADMIN -->
-    <div id="adminLoginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModals()">&times;</span>
-            <h3>🔐 Espace Administrateur</h3>
-            <p style="margin-bottom: 15px; font-size: 0.9rem;">Entrez votre mot de passe secret pour accéder aux privilèges de gestion.</p>
-            <input type="password" id="adminPasswordInput" placeholder="Mot de passe secret">
-            <button class="action-btn" style="width: 100%;" onclick="verifyAdminLogin()">Se connecter</button>
-        </div>
-    </div>
+<div class="card">
+<h3>👥 Suivi des Membres et Cotisations (1 000 FCFA / mois)</h3>
+<div style="overflow-x:auto;">
+<table>
+<thead>
+<tr id="membersTableHeader">
+<th>Nom du membre</th>
+</tr>
+</thead>
+<tbody id="publicMembersTableBody"></tbody>
+</table>
+</div>
+<p class="small-note">
+Les informations de cotisation affichées ici sont actuellement enregistrées sur cet appareil.
+</p>
+</div>
 
-    <!-- MODAL TABLEAU DE BORD ADMINISTRATEUR -->
-    <div id="adminDashboardModal" class="modal">
-        <div class="modal-content" style="max-width: 700px;">
-            <span class="close-modal" onclick="closeModals()">&times;</span>
-            <h3 style="color: var(--primary-color); margin-bottom: 15px;">⚙️ Panneau de Contrôle Administrateur</h3>
-            
-            <!-- Gestion Logo -->
-            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-                <h4>🖼️ Modifier le Logo du Site (Depuis la galerie)</h4>
-                <input type="file" id="logoFileInput" accept="image/*" onchange="updateLogo(event)">
-            </div>
+</div>
 
-            <!-- Publication Annonce -->
-            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-                <h4>📢 Publier une annonce pour les membres</h4>
-                <textarea id="adminAnnouncementInput" placeholder="Écrire la bonne nouvelle ici..."></textarea>
-                <button class="action-btn" onclick="saveAnnouncement()">Publier l'annonce</button>
-            </div>
+<!-- CONNEXION ADMIN -->
+<div id="adminLoginModal" class="modal">
+<div class="modal-content">
+<span class="close-modal" onclick="closeModals()">&times;</span>
+<h3>🔐 Espace Administrateur</h3>
+<p>Connectez-vous avec votre compte administrateur Firebase.</p>
 
-            <!-- Ajouter un Membre -->
-            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-                <h4>➕ Ajouter un Nouveau Membre</h4>
-                <input type="text" id="newMemberName" placeholder="Nom et Prénom du membre">
-                <button class="action-btn" onclick="addMember()">Enregistrer le membre</button>
-            </div>
+<input type="email" id="adminEmailInput" placeholder="Adresse e-mail administrateur">
+<input type="password" id="adminPasswordInput" placeholder="Mot de passe Firebase">
 
-            <!-- Valider un Paiement -->
-            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-                <h4>💳 Valider une Cotisation (1000 FCFA)</h4>
-                <select id="paymentMemberSelect"></select>
-                <select id="paymentMonthSelect">
-                    <option value="Janvier 2027">Janvier 2027</option>
-                    <option value="Février 2027">Février 2027</option>
-                    <option value="Mars 2027">Mars 2027</option>
-                </select>
-                <button class="action-btn" onclick="validatePayment()">Valider le Paiement</button>
-            </div>
+<button class="action-btn" style="width:100%;" onclick="verifyAdminLogin()">
+Se connecter
+</button>
+<p id="loginMessage" class="small-note"></p>
+</div>
+</div>
 
-            <!-- Ajouter une Dépense -->
-            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
-                <h4>📉 Enregistrer une Dépense de la Caisse</h4>
-                <input type="text" id="expenseMotif" placeholder="Motif de la dépense (ex: Achat fournitures)">
-                <input type="number" id="expenseAmount" placeholder="Montant en FCFA">
-                <input type="date" id="expenseDate">
-                <button class="action-btn" onclick="addExpense()">Enregistrer la dépense</button>
-            </div>
-            
-            <button class="action-btn" style="background: var(--danger-color); width: 100%;" onclick="logoutAdmin()">Fermer / Quitter l'Admin</button>
-        </div>
-    </div>
+<!-- TABLEAU ADMIN -->
+<div id="adminDashboardModal" class="modal">
+<div class="modal-content" style="max-width:700px;">
+<span class="close-modal" onclick="closeModals()">&times;</span>
 
-    <!-- MODAL HISTORIQUES & LISTES (CONSULTATION PUBLIQUE) -->
-    <div id="historyModal" class="modal">
-        <div class="modal-content" style="max-width: 700px;">
-            <span class="close-modal" onclick="closeModals()">&times;</span>
-            <h3 id="historyModalTitle" style="color: var(--primary-color); margin-bottom: 15px;">Historique</h3>
-            <div id="historyModalBody" style="max-height: 400px; overflow-y: auto;">
-                <!-- Rempli dynamiquement -->
-            </div>
-        </div>
-    </div>
+<h3>⚙️ Panneau de Contrôle Administrateur</h3>
 
-    <script>
-        // --- BASE DE DONNÉES LOCALE (Mémoire persistante) ---
-        let appData = JSON.parse(localStorage.getItem('familleBatiData')) || {
-            logo: "",
-            announcement: "Bienvenue sur le portail officiel de la Famille Bati. La cotisation commence en janvier 2027 à 1000 FCFA / mois.",
-            members: [], // {id, name, payments: { "Janvier 2027": true/false, ... }}
-            expenses: [] // {motif, amount, date}
-        };
+<div class="admin-section">
+<h4>🖼️ Modifier le logo</h4>
+<input type="file" id="logoFileInput" accept="image/*" onchange="updateLogo(event)">
+</div>
 
-        function saveData() {
-            localStorage.setItem('familleBatiData', JSON.stringify(appData));
-            renderApp();
-        }
+<div class="admin-section">
+<h4>📢 Publier une annonce pour les membres</h4>
+<textarea id="adminAnnouncementInput" placeholder="Écrire votre annonce ici..."></textarea>
+<button class="action-btn" onclick="saveAnnouncement()">Publier l'annonce</button>
+</div>
 
-        // --- INITIALISATION & AFFICHAGE ---
-        function renderApp() {
-            // Logo
-            if(appData.logo) {
-                document.getElementById('mainLogo').src = appData.logo;
-            }
-            // Annonce
-            document.getElementById('publicAnnouncement').innerText = appData.announcement;
+<div class="admin-section">
+<h4>➕ Ajouter un nouveau membre</h4>
+<input type="text" id="newMemberName" placeholder="Nom et prénom du membre">
+<button class="action-btn" onclick="addMember()">Enregistrer le membre</button>
+</div>
 
-            // Membres tableau public & Select Admin
-            let tbody = document.getElementById('publicMembersTableBody');
-            let paymentSelect = document.getElementById('paymentMemberSelect');
-            tbody.innerHTML = '';
-            paymentSelect.innerHTML = '';
+<div class="admin-section">
+<h4>💳 Valider une cotisation (1 000 FCFA)</h4>
+<select id="paymentMemberSelect"></select>
+<select id="paymentMonthSelect"></select>
+<button class="action-btn" onclick="validatePayment()">Valider le paiement</button>
+</div>
 
-            if(appData.members.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Aucun membre enregistré.</td></tr>`;
-            } else {
-                appData.members.forEach(m => {
-                    let tr = document.createElement('tr');
-                    let jan = m.payments['Janvier 2027'] ? '<span class="badge-success">Payé (1000F)</span>' : '<span class="badge-warning">En attente</span>';
-                    let fev = m.payments['Février 2027'] ? '<span class="badge-success">Payé (1000F)</span>' : '<span class="badge-warning">En attente</span>';
-                    let mar = m.payments['Mars 2027'] ? '<span class="badge-success">Payé (1000F)</span>' : '<span class="badge-warning">En attente</span>';
-                    
-                    tr.innerHTML = `<td><strong>${m.name}</strong></td><td>${jan}</td><td>${fev}</td><td>${mar}</td><td>À jour</td>`;
-                    tbody.appendChild(tr);
+<div class="admin-section">
+<h4>📉 Enregistrer une dépense</h4>
+<input type="text" id="expenseMotif" placeholder="Motif de la dépense">
+<input type="number" id="expenseAmount" placeholder="Montant en FCFA">
+<input type="date" id="expenseDate">
+<button class="action-btn" onclick="addExpense()">Enregistrer la dépense</button>
+</div>
 
-                    let opt = document.createElement('option');
-                    opt.value = m.id;
-                    opt.innerText = m.name;
-                    paymentSelect.appendChild(opt);
-                });
-            }
+<button class="action-btn" style="background:var(--danger-color);width:100%;" onclick="logoutAdmin()">
+Fermer / Quitter l'Admin
+</button>
 
-            // Calculs financiers automatiques
-            let totalCotisations = 0;
-            appData.members.forEach(m => {
-                for(let month in m.payments) {
-                    if(m.payments[month]) totalCotisations += 1000;
-                }
-            });
+</div>
+</div>
 
-            let totalDepenses = 0;
-            appData.expenses.forEach(e => {
-                totalDepenses += Number(e.amount);
-            });
+<!-- HISTORIQUES -->
+<div id="historyModal" class="modal">
+<div class="modal-content" style="max-width:700px;">
+<span class="close-modal" onclick="closeModals()">&times;</span>
+<h3 id="historyModalTitle"></h3>
+<div id="historyModalBody" style="max-height:400px;overflow-y:auto;"></div>
+</div>
+</div>
 
-            let soldeCaisse = totalCotisations - totalDepenses;
+<script type="module">
 
-            document.getElementById('totalContributions').innerText = totalCotisations.toLocaleString() + " FCFA";
-            document.getElementById('totalExpenses').innerText = totalDepenses.toLocaleString() + " FCFA";
-            document.getElementById('totalBalance').innerText = soldeCaisse.toLocaleString() + " FCFA";
-        }
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
-        // --- GESTION ADMIN ---
-        function openAdminLogin() {
-            document.getElementById('adminLoginModal').style.display = 'flex';
-        }
+import {
+ getAuth,
+ signInWithEmailAndPassword,
+ signOut,
+ onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
 
-        function verifyAdminLogin() {
-            let pwd = document.getElementById('adminPasswordInput').value;
-            if(pwd === "batibi27") {
-                document.getElementById('adminLoginModal').style.display = 'none';
-                document.getElementById('adminPasswordInput').value = '';
-                document.getElementById('adminDashboardModal').style.display = 'flex';
-            } else {
-                alert("Mot de passe incorrect !");
-            }
-        }
+import {
+ getFirestore,
+ doc,
+ setDoc,
+ onSnapshot,
+ serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
 
-        function logoutAdmin() {
-            document.getElementById('adminDashboardModal').style.display = 'none';
-        }
+/* CONFIGURATION FIREBASE */
+const firebaseConfig = {
+ apiKey: "AIzaSyA9PsOunMa_mTgraG6CoqqJztNzyts1y6M",
+ authDomain: "famille-bati.firebaseapp.com",
+ projectId: "famille-bati",
+ storageBucket: "famille-bati.firebasestorage.app",
+ messagingSenderId: "988957972487",
+ appId: "1:988957972487:web:35a1b79fd1214d5b0572a2"
+};
 
-        function closeModals() {
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-        }
+/* IDENTIFIANT ADMINISTRATEUR */
+const ADMIN_UID = "LKjLzD6m4katWbMntfjJzkz5QSM5teicNx";
 
-        // Modifier le logo depuis la galerie
-        function updateLogo(event) {
-            let reader = new FileReader();
-            reader.onload = function() {
-                appData.logo = reader.result;
-                saveData();
-                alert("Logo mis à jour avec succès !");
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const announcementRef = doc(db, "annonces", "actuelle");
 
-        // Sauvegarder annonce
-        function saveAnnouncement() {
-            let text = document.getElementById('adminAnnouncementInput').value;
-            if(text) {
-                appData.announcement = text;
-                document.getElementById('adminAnnouncementInput').value = '';
-                saveData();
-                alert("Annonce publiée avec succès !");
-            }
-        }
+let adminConnected = false;
 
-        // Ajouter un membre
-        function addMember() {
-            let name = document.getElementById('newMemberName').value;
-            if(name) {
-                appData.members.push({
-                    id: Date.now().toString(),
-                    name: name,
-                    payments: {}
-                });
-                document.getElementById('newMemberName').value = '';
-                saveData();
-                alert("Membre ajouté avec succès !");
-            }
-        }
+/* MOIS DE COTISATION */
+const months = [
+"Janvier 2027",
+"Février 2027",
+"Mars 2027",
+"Avril 2027",
+"Mai 2027",
+"Juin 2027",
+"Juillet 2027",
+"Août 2027",
+"Septembre 2027",
+"Octobre 2027",
+"Novembre 2027",
+"Décembre 2027"
+];
 
-        // Valider un paiement
-        function validatePayment() {
-            let memberId = document.getElementById('paymentMemberSelect').value;
-            let month = document.getElementById('paymentMonthSelect').value;
-            
-            let member = appData.members.find(m => m.id === memberId);
-            if(member) {
-                member.payments[month] = true;
-                saveData();
-                alert(`Paiement de 1000 FCFA validé pour ${member.name} (${month}) !`);
-            }
-        }
+/* DONNÉES LOCALES */
+let appData;
 
-        // Ajouter une dépense
-        function addExpense() {
-            let motif = document.getElementById('expenseMotif').value;
-            let amount = document.getElementById('expenseAmount').value;
-            let date = document.getElementById('expenseDate').value;
+try {
+ appData = JSON.parse(localStorage.getItem("familleBatiData")) || {};
+} catch(e) {
+ appData = {};
+}
 
-            if(motif && amount && date) {
-                appData.expenses.push({ motif, amount, date });
-                document.getElementById('expenseMotif').value = '';
-                document.getElementById('expenseAmount').value = '';
-                document.getElementById('expenseDate').value = '';
-                saveData();
-                alert("Dépense enregistrée avec succès !");
-            } else {
-                alert("Veuillez remplir tous les champs de la dépense.");
-            }
-        }
+appData.logo = appData.logo || "";
+appData.announcement = appData.announcement || "Bienvenue sur le portail officiel de la Famille Bati.";
+appData.members = appData.members || [];
+appData.expenses = appData.expenses || [];
 
-        // --- CONSULTATION HISTORIQUES (BOUTONS PUBLICS) ---
-        function showHistoryModal(type) {
-            let modal = document.getElementById('historyModal');
-            let title = document.getElementById('historyModalTitle');
-            let body = document.getElementById('historyModalBody');
-            body.innerHTML = '';
+function saveData() {
+ localStorage.setItem("familleBatiData", JSON.stringify(appData));
+ renderApp();
+}
 
-            if(type === 'contributions') {
-                title.innerText = "📋 Historique des Paiements Validés";
-                let html = `<table><tr><th>Membre</th><th>Mois</th><th>Montant</th></tr>`;
-                let count = 0;
-                appData.members.forEach(m => {
-                    for(let month in m.payments) {
-                        if(m.payments[month]) {
-                            html += `<tr><td>${m.name}</td><td>${month}</td><td>1 000 FCFA</td></tr>`;
-                            count++;
-                        }
-                    }
-                });
-                html += `</table>`;
-                if(count === 0) html = `<p>Aucun paiement validé pour l'instant.</p>`;
-                body.innerHTML = html;
-            } 
-            else if(type === 'expenses') {
-                title.innerText = "📉 Historique des Dépenses de la Caisse";
-                let html = `<table><tr><th>Date</th><th>Motif</th><th>Montant</th></tr>`;
-                if(appData.expenses.length === 0) {
-                    html = `<p>Aucune dépense enregistrée.</p>`;
-                } else {
-                    appData.expenses.forEach(e => {
-                        html += `<tr><td>${e.date}</td><td>${e.motif}</td><td>${Number(e.amount).toLocaleString()} FCFA</td></tr>`;
-                    });
-                    html += `</table>`;
-                }
-                body.innerHTML = html;
-            }
-            else if(type === 'members') {
-                title.innerText = "👥 Liste Officielle des Membres";
-                let html = `<ul>`;
-                if(appData.members.length === 0) {
-                    html = `<p>Aucun membre inscrit.</p>`;
-                } else {
-                    appData.members.forEach(m => {
-                        html += `<li style="padding: 8px 0; border-bottom: 1px solid #eee;">👤 ${m.name}</li>`;
-                    });
-                    html += `</ul>`;
-                }
-                body.innerHTML = html;
-            }
+/* INITIALISATION DES MOIS */
+const monthSelect = document.getElementById("paymentMonthSelect");
+months.forEach(month => {
+ const option = document.createElement("option");
+ option.value = month;
+ option.textContent = month;
+ monthSelect.appendChild(option);
+});
 
-            modal.style.display = 'flex';
-        }
+/* AFFICHAGE */
+function renderApp() {
 
-        // Charger l'application au démarrage
-        window.onload = renderApp;
-    </script>
+ if(appData.logo) {
+  document.getElementById("mainLogo").src = appData.logo;
+ }
+
+ const tbody = document.getElementById("publicMembersTableBody");
+ const header = document.getElementById("membersTableHeader");
+ const paymentSelect = document.getElementById("paymentMemberSelect");
+
+ tbody.innerHTML = "";
+ header.innerHTML = "<th>Nom du membre</th>";
+
+ months.forEach(month => {
+  const th = document.createElement("th");
+  th.textContent = month.replace(" 2027","");
+  header.appendChild(th);
+ });
+
+ const statusTh = document.createElement("th");
+ statusTh.textContent = "Statut";
+ header.appendChild(statusTh);
+
+ paymentSelect.innerHTML = "";
+
+ if(appData.members.length === 0) {
+  const tr = document.createElement("tr");
+  const td = document.createElement("td");
+  td.colSpan = 14;
+  td.textContent = "Aucun membre enregistré pour le moment.";
+  tr.appendChild(td);
+  tbody.appendChild(tr);
+ } else {
+
+  appData.members.forEach(member => {
+
+   member.payments = member.payments || {};
+
+   const tr = document.createElement("tr");
+   const nameCell = document.createElement("td");
+   nameCell.textContent = member.name;
+   tr.appendChild(nameCell);
+
+   let paidCount = 0;
+
+   months.forEach(month => {
+    const td = document.createElement("td");
+
+    if(member.payments[month]) {
+     td.innerHTML = '<span class="badge-success">Payé</span>';
+     paidCount++;
+    } else {
+     td.innerHTML = '<span class="badge-warning">En attente</span>';
+    }
+
+    tr.appendChild(td);
+   });
+
+   const status = document.createElement("td");
+   status.textContent = paidCount === 12 ? "À jour" : paidCount + "/12";
+   tr.appendChild(status);
+   tbody.appendChild(tr);
+
+   const option = document.createElement("option");
+   option.value = member.id;
+   option.textContent = member.name;
+   paymentSelect.appendChild(option);
+  });
+ }
+
+ let totalCotisations = 0;
+ appData.members.forEach(member => {
+  Object.values(member.payments || {}).forEach(paid => {
+   if(paid) totalCotisations += 1000;
+  });
+ });
+
+ let totalDepenses = 0;
+ appData.expenses.forEach(expense => {
+  totalDepenses += Number(expense.amount) || 0;
+ });
+
+ document.getElementById("totalContributions").textContent =
+ totalCotisations.toLocaleString("fr-FR") + " FCFA";
+
+ document.getElementById("totalExpenses").textContent =
+ totalDepenses.toLocaleString("fr-FR") + " FCFA";
+
+ document.getElementById("totalBalance").textContent =
+ (totalCotisations - totalDepenses).toLocaleString("fr-FR") + " FCFA";
+}
+
+/* ANNONCES FIREBASE : LECTURE PUBLIQUE EN TEMPS RÉEL */
+onSnapshot(announcementRef, snapshot => {
+
+ if(snapshot.exists()) {
+  const data = snapshot.data();
+
+  appData.announcement = data.message || "";
+  document.getElementById("publicAnnouncement").textContent =
+  appData.announcement;
+
+ } else {
+  document.getElementById("publicAnnouncement").textContent =
+  appData.announcement;
+ }
+
+ document.getElementById("announcementStatus").textContent =
+ "Annonces synchronisées avec Firebase.";
+
+}, error => {
+
+ console.error("Erreur annonce :", error);
+
+ document.getElementById("announcementStatus").textContent =
+ "Impossible de charger les annonces pour le moment.";
+
+});
+
+/* AUTHENTIFICATION FIREBASE */
+onAuthStateChanged(auth, async user => {
+
+ if(user && user.uid === ADMIN_UID) {
+
+  adminConnected = true;
+  document.getElementById("adminLoginModal").style.display = "none";
+  document.getElementById("adminDashboardModal").style.display = "flex";
+
+ } else {
+
+  adminConnected = false;
+
+  if(user) {
+   await signOut(auth);
+   alert("Ce compte n'est pas autorisé à administrer FAMILLE BATI.");
+  }
+
+  document.getElementById("adminDashboardModal").style.display = "none";
+ }
+});
+
+/* CONNEXION ADMIN */
+async function verifyAdminLogin() {
+
+ const email = document.getElementById("adminEmailInput").value.trim();
+ const password = document.getElementById("adminPasswordInput").value;
+ const message = document.getElementById("loginMessage");
+
+ if(!email || !password) {
+  message.textContent = "Veuillez saisir votre e-mail et votre mot de passe.";
+  return;
+ }
+
+ message.textContent = "Connexion en cours...";
+
+ try {
+
+  const result = await signInWithEmailAndPassword(auth,email,password);
+
+  if(result.user.uid !== ADMIN_UID) {
+   await signOut(auth);
+   message.textContent = "Compte non autorisé.";
+   return;
+  }
+
+  message.textContent = "Connexion réussie.";
+
+ } catch(error) {
+
+  console.error(error);
+  message.textContent = "Connexion impossible. Vérifiez votre e-mail et votre mot de passe.";
+ }
+}
+
+/* DÉCONNEXION */
+async function logoutAdmin() {
+ await signOut(auth);
+ adminConnected = false;
+ closeModals();
+}
+
+/* PUBLICATION D'ANNONCE DANS FIREBASE */
+async function saveAnnouncement() {
+
+ if(!adminConnected || !auth.currentUser || auth.currentUser.uid !== ADMIN_UID) {
+  alert("Vous devez être connecté comme administrateur.");
+  return;
+ }
+
+ const message = document.getElementById("adminAnnouncementInput").value.trim();
+
+ if(!message) {
+  alert("Veuillez écrire une annonce.");
+  return;
+ }
+
+ try {
+
+  await setDoc(announcementRef, {
+   message: message,
+   updatedAt: serverTimestamp()
+  });
+
+  document.getElementById("adminAnnouncementInput").value = "";
+  alert("Annonce publiée avec succès. Tous les visiteurs pourront la voir.");
+
+ } catch(error) {
+
+  console.error(error);
+  alert("Erreur lors de la publication. Vérifiez votre connexion Firebase.");
+ }
+}
+
+/* FENÊTRES */
+function openAdminLogin() {
+ document.getElementById("adminLoginModal").style.display = "flex";
+}
+
+function closeModals() {
+ document.querySelectorAll(".modal").forEach(modal => {
+  modal.style.display = "none";
+ });
+}
+
+/* LOGO */
+function updateLogo(event) {
+
+ if(!adminConnected) {
+  alert("Connexion administrateur nécessaire.");
+  return;
+ }
+
+ const file = event.target.files[0];
+ if(!file) return;
+
+ const reader = new FileReader();
+
+ reader.onload = function() {
+  appData.logo = reader.result;
+  saveData();
+  alert("Logo modifié sur cet appareil.");
+ };
+
+ reader.readAsDataURL(file);
+}
+
+/* AJOUT MEMBRE */
+function addMember() {
+
+ if(!adminConnected) return alert("Connexion administrateur nécessaire.");
+
+ const name = document.getElementById("newMemberName").value.trim();
+
+ if(!name) return alert("Veuillez saisir le nom du membre.");
+
+ appData.members.push({
+  id: Date.now().toString(),
+  name: name,
+  payments: {}
+ });
+
+ document.getElementById("newMemberName").value = "";
+ saveData();
+ alert("Membre ajouté.");
+}
+
+/* VALIDATION PAIEMENT */
+function validatePayment() {
+
+ if(!adminConnected) return alert("Connexion administrateur nécessaire.");
+
+ const memberId = document.getElementById("paymentMemberSelect").value;
+ const month = document.getElementById("paymentMonthSelect").value;
+
+ const member = appData.members.find(m => m.id === memberId);
+
+ if(!member) return alert("Sélectionnez un membre.");
+
+ member.payments = member.payments || {};
+
+ if(member.payments[month]) {
+  return alert("Ce paiement est déjà validé.");
+ }
+
+ member.payments[month] = true;
+ saveData();
+
+ alert("Paiement de 1 000 FCFA validé pour " + member.name + " (" + month + ").");
+}
+
+/* AJOUT DÉPENSE */
+function addExpense() {
+
+ if(!adminConnected) return alert("Connexion administrateur nécessaire.");
+
+ const motif = document.getElementById("expenseMotif").value.trim();
+ const amount = Number(document.getElementById("expenseAmount").value);
+ const date = document.getElementById("expenseDate").value;
+
+ if(!motif || !amount || amount <= 0 || !date) {
+  alert("Veuillez remplir correctement tous les champs.");
+  return;
+ }
+
+ appData.expenses.push({motif,amount,date});
+
+ document.getElementById("expenseMotif").value = "";
+ document.getElementById("expenseAmount").value = "";
+ document.getElementById("expenseDate").value = "";
+
+ saveData();
+ alert("Dépense enregistrée sur cet appareil.");
+}
+
+/* HISTORIQUES PUBLICS */
+function showHistoryModal(type) {
+
+ const modal = document.getElementById("historyModal");
+ const title = document.getElementById("historyModalTitle");
+ const body = document.getElementById("historyModalBody");
+
+ body.innerHTML = "";
+
+ if(type === "contributions") {
+
+  title.textContent = "📋 Paiements validés";
+
+  const table = document.createElement("table");
+  table.innerHTML = "<tr><th>Membre</th><th>Mois</th><th>Montant</th></tr>";
+
+  let count = 0;
+
+  appData.members.forEach(member => {
+   Object.keys(member.payments || {}).forEach(month => {
+
+    if(member.payments[month]) {
+     const tr = document.createElement("tr");
+
+     [member.name,month,"1 000 FCFA"].forEach(value => {
+      const td = document.createElement("td");
+      td.textContent = value;
+      tr.appendChild(td);
+     });
+
+     table.appendChild(tr);
+     count++;
+    }
+   });
+  });
+
+  if(count) body.appendChild(table);
+  else body.textContent = "Aucun paiement validé pour le moment.";
+
+ } else if(type === "expenses") {
+
+  title.textContent = "📉 Historique des dépenses";
+
+  if(appData.expenses.length === 0) {
+   body.textContent = "Aucune dépense enregistrée.";
+  } else {
+
+   const table = document.createElement("table");
+   table.innerHTML = "<tr><th>Date</th><th>Motif</th><th>Montant</th></tr>";
+
+   appData.expenses.forEach(expense => {
+    const tr = document.createElement("tr");
+
+    [expense.date,expense.motif,Number(expense.amount).toLocaleString("fr-FR")+" FCFA"].forEach(value => {
+     const td = document.createElement("td");
+     td.textContent = value;
+     tr.appendChild(td);
+    });
+
+    table.appendChild(tr);
+   });
+
+   body.appendChild(table);
+  }
+
+ } else if(type === "members") {
+
+  title.textContent = "👥 Liste officielle des membres";
+   
+     if(appData.members.length === 0) {
+   body.textContent = "Aucun membre inscrit.";
+  } else {
+
+   const list = document.createElement("ul");
+
+   appData.members.forEach(member => {
+    const li = document.createElement("li");
+    li.textContent = "👤 " + member.name;
+    li.style.padding = "8px";
+    list.appendChild(li);
+   });
+
+   body.appendChild(list);
+  }
+ }
+
+ modal.style.display = "flex";
+}
+
+/* FONCTIONS ACCESSIBLES AUX BOUTONS HTML */
+window.openAdminLogin = openAdminLogin;
+window.closeModals = closeModals;
+window.verifyAdminLogin = verifyAdminLogin;
+window.logoutAdmin = logoutAdmin;
+window.saveAnnouncement = saveAnnouncement;
+window.updateLogo = updateLogo;
+window.addMember = addMember;
+window.validatePayment = validatePayment;
+window.addExpense = addExpense;
+window.showHistoryModal = showHistoryModal;
+
+/* LANCEMENT */
+renderApp();
+
+</script>
 </body>
-</html> 
+</html>
