@@ -430,7 +430,14 @@ function renderAdminPayments() {
 function renderExpenses() {
   $("totalExpenses").textContent = money(
     expenses.reduce((sum,e) => sum + Number(e.montant || 0), 0)
-  );
+  );const totalCotisations = payments
+  .filter(p => p.statut === "valide")
+  .reduce((sum, p) => sum + Number(p.montant || 0), 0);
+
+const totalDepenses = expenses
+  .reduce((sum, e) => sum + Number(e.montant || 0), 0);
+
+$("totalBalance").textContent = money(totalCotisations - totalDepenses);
 
   $("expenseHistory").innerHTML = expenses.length
     ? [...expenses].reverse().map(e => `
