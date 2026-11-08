@@ -1,43 +1,429 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMILLE BATI - Espace Communautaire</title>
+    <style>
+        :root {
+            --primary-color: #8B5A2B;
+            --secondary-color: #D4AF37;
+            --dark-color: #2C2C2C;
+            --light-color: #F9F6F0;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--light-color); color: var(--dark-color); line-height: 1.6; }
+        header { background: linear-gradient(135deg, #2C2C2C, #4A4A4A); color: white; text-align: center; padding: 20px; position: relative; border-bottom: 4px solid var(--secondary-color); }
+        .logo-container { margin-bottom: 10px; }
+        .logo-container img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--secondary-color); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        h1 { font-size: 1.8rem; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 1px; }
+        p.subtitle { font-size: 0.95rem; opacity: 0.9; }
+        
+        /* Bouton Admin discret */
+        .admin-trigger { position: absolute; top: 15px; right: 15px; background: var(--secondary-color); color: var(--dark-color); border: none; padding: 8px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .admin-trigger:hover { background: #b8972e; }
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+        
+        /* Cartes d'information */
+        .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--primary-color); }
+        .card h3 { color: var(--primary-color); margin-bottom: 12px; border-bottom: 2px solid var(--light-color); padding-bottom: 8px; }
+        
+        /* Tableau d'annonces */
+        .announcement-box { background: #fff8e1; border-left: 5px solid var(--secondary-color); padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        
+        /* Statistiques financières */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-top: 3px solid var(--secondary-color); }
+        .stat-card h4 { font-size: 0.9rem; color: #666; }
+        .stat-card p { font-size: 1.4rem; font-weight: bold; color: var(--primary-color); margin-top: 5px; }
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+        /* Boutons et formulaires */
+        button.action-btn { background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1rem; margin: 5px 0; transition: background 0.3s; }
+        button.action-btn:hover { background: #6b431e; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; background: white; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: var(--primary-color); color: white; }
+        
+        /* Modal Admin */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 25px; border-radius: 10px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #666; }
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+        .badge-success { background: var(--success-color); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+        .badge-warning { background: #ffc107; color: #333; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+        
+        .ai-advice { background: #e8f4fd; border-left: 5px solid #2196F3; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-style: italic; }
+    </style>
+</head>
+<body>
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    <header>
+        <button class="admin-trigger" onclick="openAdminLogin()">BATI</button>
+        <div class="logo-container">
+            <img id="mainLogo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><circle cx='70' cy='70' r='70' fill='%23D4AF37'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%232C2C2C' font-weight='bold'>BATI</text></svg>" alt="Logo Famille Bati">
+        </div>
+        <h1>Famille BATI</h1>
+        <p class="subtitle">Plus qu'un nom, une famille toujours unie</p>
+    </header>
 
-jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+    <div class="container">
+
+        <!-- Conseil Intelligent IA -->
+        <div class="ai-advice" id="aiAdviceBox">
+            🤖 **Conseil IA Famille Bati :** "La régularité dans la cotisation de 1 000 FCFA par mois (débutant en janvier 2027) est la clé de notre autonomie et de notre force collective. Pensez à régler vos contributions à temps pour soutenir les projets de la famille !"
+        </div>
+
+        <!-- Tableau d'annonces administratives -->
+        <div class="announcement-box">
+            <h3>📢 Annonces et Bonnes Nouvelles de l'Administration</h3>
+            <p id="publicAnnouncement">Bienvenue sur le portail officiel de la Famille Bati. Consultez régulièrement cet espace pour suivre l'actualité et l'évolution de notre caisse commune.</p>
+        </div>
+
+        <!-- Résumé Financier / Caisse Nationale -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Caisse Nationale (Solde)</h4>
+                <p id="totalBalance">0 FCFA</p>
+            </div>
+            <div class="stat-card">
+                <h4>Total Cotisations perçues</h4>
+                <p id="totalContributions">0 FCFA</p>
+            </div>
+            <div class="stat-card">
+                <h4>Total Dépenses</h4>
+                <p id="totalExpenses">0 FCFA</p>
+            </div>
+        </div>
+
+        <!-- Boutons de Consultation Historique pour les Membres -->
+        <div class="card" style="text-align: center;">
+            <h3>🔍 Consultation Publique</h3>
+            <p>Accédez en un clic à toute la transparence de notre gestion financière :</p>
+            <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button class="action-btn" onclick="showHistoryModal('contributions')">📋 Voir les Paiements Validés</button>
+                <button class="action-btn" onclick="showHistoryModal('expenses')">📉 Voir l'Historique des Dépenses</button>
+                <button class="action-btn" onclick="showHistoryModal('members')">👥 Liste des Membres</button>
+            </div>
+        </div>
+
+        <!-- Liste des membres et état des cotisations vue publique -->
+        <div class="card">
+            <h3>👥 Suivi des Membres & Cotisations (1000 FCFA / Mois)</h3>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom du Membre</th>
+                            <th>Janv 2027</th>
+                            <th>Fév 2027</th>
+                            <th>Mars 2027</th>
+                            <th>Statut Global</th>
+                        </tr>
+                     hostages>
+                        <tr id="noMemberRow"><td colspan="5" style="text-align: center;">Aucun membre enregistré pour le moment.</td></tr>
+                    </thead>
+                    <tbody id="publicMembersTableBody">
+                        <!-- Dynamique -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL CONNEXION ADMIN -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h3>🔐 Espace Administrateur</h3>
+            <p style="margin-bottom: 15px; font-size: 0.9rem;">Entrez votre mot de passe secret pour accéder aux privilèges de gestion.</p>
+            <input type="password" id="adminPasswordInput" placeholder="Mot de passe secret">
+            <button class="action-btn" style="width: 100%;" onclick="verifyAdminLogin()">Se connecter</button>
+        </div>
+    </div>
+
+    <!-- MODAL TABLEAU DE BORD ADMINISTRATEUR -->
+    <div id="adminDashboardModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h3 style="color: var(--primary-color); margin-bottom: 15px;">⚙️ Panneau de Contrôle Administrateur</h3>
+            
+            <!-- Gestion Logo -->
+            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h4>🖼️ Modifier le Logo du Site (Depuis la galerie)</h4>
+                <input type="file" id="logoFileInput" accept="image/*" onchange="updateLogo(event)">
+            </div>
+
+            <!-- Publication Annonce -->
+            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h4>📢 Publier une annonce pour les membres</h4>
+                <textarea id="adminAnnouncementInput" placeholder="Écrire la bonne nouvelle ici..."></textarea>
+                <button class="action-btn" onclick="saveAnnouncement()">Publier l'annonce</button>
+            </div>
+
+            <!-- Ajouter un Membre -->
+            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h4>➕ Ajouter un Nouveau Membre</h4>
+                <input type="text" id="newMemberName" placeholder="Nom et Prénom du membre">
+                <button class="action-btn" onclick="addMember()">Enregistrer le membre</button>
+            </div>
+
+            <!-- Valider un Paiement -->
+            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h4>💳 Valider une Cotisation (1000 FCFA)</h4>
+                <select id="paymentMemberSelect"></select>
+                <select id="paymentMonthSelect">
+                    <option value="Janvier 2027">Janvier 2027</option>
+                    <option value="Février 2027">Février 2027</option>
+                    <option value="Mars 2027">Mars 2027</option>
+                </select>
+                <button class="action-btn" onclick="validatePayment()">Valider le Paiement</button>
+            </div>
+
+            <!-- Ajouter une Dépense -->
+            <div style="background: #f4f4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                <h4>📉 Enregistrer une Dépense de la Caisse</h4>
+                <input type="text" id="expenseMotif" placeholder="Motif de la dépense (ex: Achat fournitures)">
+                <input type="number" id="expenseAmount" placeholder="Montant en FCFA">
+                <input type="date" id="expenseDate">
+                <button class="action-btn" onclick="addExpense()">Enregistrer la dépense</button>
+            </div>
+            
+            <button class="action-btn" style="background: var(--danger-color); width: 100%;" onclick="logoutAdmin()">Fermer / Quitter l'Admin</button>
+        </div>
+    </div>
+
+    <!-- MODAL HISTORIQUES & LISTES (CONSULTATION PUBLIQUE) -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close-modal" onclick="closeModals()">&times;</span>
+            <h3 id="historyModalTitle" style="color: var(--primary-color); margin-bottom: 15px;">Historique</h3>
+            <div id="historyModalBody" style="max-height: 400px; overflow-y: auto;">
+                <!-- Rempli dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- BASE DE DONNÉES LOCALE (Mémoire persistante) ---
+        let appData = JSON.parse(localStorage.getItem('familleBatiData')) || {
+            logo: "",
+            announcement: "Bienvenue sur le portail officiel de la Famille Bati. La cotisation commence en janvier 2027 à 1000 FCFA / mois.",
+            members: [], // {id, name, payments: { "Janvier 2027": true/false, ... }}
+            expenses: [] // {motif, amount, date}
+        };
+
+        function saveData() {
+            localStorage.setItem('familleBatiData', JSON.stringify(appData));
+            renderApp();
+        }
+
+        // --- INITIALISATION & AFFICHAGE ---
+        function renderApp() {
+            // Logo
+            if(appData.logo) {
+                document.getElementById('mainLogo').src = appData.logo;
+            }
+            // Annonce
+            document.getElementById('publicAnnouncement').innerText = appData.announcement;
+
+            // Membres tableau public & Select Admin
+            let tbody = document.getElementById('publicMembersTableBody');
+            let paymentSelect = document.getElementById('paymentMemberSelect');
+            tbody.innerHTML = '';
+            paymentSelect.innerHTML = '';
+
+            if(appData.members.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center;">Aucun membre enregistré.</td></tr>`;
+            } else {
+                appData.members.forEach(m => {
+                    let tr = document.createElement('tr');
+                    let jan = m.payments['Janvier 2027'] ? '<span class="badge-success">Payé (1000F)</span>' : '<span class="badge-warning">En attente</span>';
+                    let fev = m.payments['Février 2027'] ? '<span class="badge-success">Payé (1000F)</span>' : '<span class="badge-warning">En attente</span>';
+                    let mar = m.payments['Mars 2027'] ? '<span class="badge-success">Payé (1000F)</span>' : '<span class="badge-warning">En attente</span>';
+                    
+                    tr.innerHTML = `<td><strong>${m.name}</strong></td><td>${jan}</td><td>${fev}</td><td>${mar}</td><td>À jour</td>`;
+                    tbody.appendChild(tr);
+
+                    let opt = document.createElement('option');
+                    opt.value = m.id;
+                    opt.innerText = m.name;
+                    paymentSelect.appendChild(opt);
+                });
+            }
+
+            // Calculs financiers automatiques
+            let totalCotisations = 0;
+            appData.members.forEach(m => {
+                for(let month in m.payments) {
+                    if(m.payments[month]) totalCotisations += 1000;
+                }
+            });
+
+            let totalDepenses = 0;
+            appData.expenses.forEach(e => {
+                totalDepenses += Number(e.amount);
+            });
+
+            let soldeCaisse = totalCotisations - totalDepenses;
+
+            document.getElementById('totalContributions').innerText = totalCotisations.toLocaleString() + " FCFA";
+            document.getElementById('totalExpenses').innerText = totalDepenses.toLocaleString() + " FCFA";
+            document.getElementById('totalBalance').innerText = soldeCaisse.toLocaleString() + " FCFA";
+        }
+
+        // --- GESTION ADMIN ---
+        function openAdminLogin() {
+            document.getElementById('adminLoginModal').style.display = 'flex';
+        }
+
+        function verifyAdminLogin() {
+            let pwd = document.getElementById('adminPasswordInput').value;
+            if(pwd === "batibi27") {
+                document.getElementById('adminLoginModal').style.display = 'none';
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminDashboardModal').style.display = 'flex';
+            } else {
+                alert("Mot de passe incorrect !");
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('adminDashboardModal').style.display = 'none';
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        }
+
+        // Modifier le logo depuis la galerie
+        function updateLogo(event) {
+            let reader = new FileReader();
+            reader.onload = function() {
+                appData.logo = reader.result;
+                saveData();
+                alert("Logo mis à jour avec succès !");
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Sauvegarder annonce
+        function saveAnnouncement() {
+            let text = document.getElementById('adminAnnouncementInput').value;
+            if(text) {
+                appData.announcement = text;
+                document.getElementById('adminAnnouncementInput').value = '';
+                saveData();
+                alert("Annonce publiée avec succès !");
+            }
+        }
+
+        // Ajouter un membre
+        function addMember() {
+            let name = document.getElementById('newMemberName').value;
+            if(name) {
+                appData.members.push({
+                    id: Date.now().toString(),
+                    name: name,
+                    payments: {}
+                });
+                document.getElementById('newMemberName').value = '';
+                saveData();
+                alert("Membre ajouté avec succès !");
+            }
+        }
+
+        // Valider un paiement
+        function validatePayment() {
+            let memberId = document.getElementById('paymentMemberSelect').value;
+            let month = document.getElementById('paymentMonthSelect').value;
+            
+            let member = appData.members.find(m => m.id === memberId);
+            if(member) {
+                member.payments[month] = true;
+                saveData();
+                alert(`Paiement de 1000 FCFA validé pour ${member.name} (${month}) !`);
+            }
+        }
+
+        // Ajouter une dépense
+        function addExpense() {
+            let motif = document.getElementById('expenseMotif').value;
+            let amount = document.getElementById('expenseAmount').value;
+            let date = document.getElementById('expenseDate').value;
+
+            if(motif && amount && date) {
+                appData.expenses.push({ motif, amount, date });
+                document.getElementById('expenseMotif').value = '';
+                document.getElementById('expenseAmount').value = '';
+                document.getElementById('expenseDate').value = '';
+                saveData();
+                alert("Dépense enregistrée avec succès !");
+            } else {
+                alert("Veuillez remplir tous les champs de la dépense.");
+            }
+        }
+
+        // --- CONSULTATION HISTORIQUES (BOUTONS PUBLICS) ---
+        function showHistoryModal(type) {
+            let modal = document.getElementById('historyModal');
+            let title = document.getElementById('historyModalTitle');
+            let body = document.getElementById('historyModalBody');
+            body.innerHTML = '';
+
+            if(type === 'contributions') {
+                title.innerText = "📋 Historique des Paiements Validés";
+                let html = `<table><tr><th>Membre</th><th>Mois</th><th>Montant</th></tr>`;
+                let count = 0;
+                appData.members.forEach(m => {
+                    for(let month in m.payments) {
+                        if(m.payments[month]) {
+                            html += `<tr><td>${m.name}</td><td>${month}</td><td>1 000 FCFA</td></tr>`;
+                            count++;
+                        }
+                    }
+                });
+                html += `</table>`;
+                if(count === 0) html = `<p>Aucun paiement validé pour l'instant.</p>`;
+                body.innerHTML = html;
+            } 
+            else if(type === 'expenses') {
+                title.innerText = "📉 Historique des Dépenses de la Caisse";
+                let html = `<table><tr><th>Date</th><th>Motif</th><th>Montant</th></tr>`;
+                if(appData.expenses.length === 0) {
+                    html = `<p>Aucune dépense enregistrée.</p>`;
+                } else {
+                    appData.expenses.forEach(e => {
+                        html += `<tr><td>${e.date}</td><td>${e.motif}</td><td>${Number(e.amount).toLocaleString()} FCFA</td></tr>`;
+                    });
+                    html += `</table>`;
+                }
+                body.innerHTML = html;
+            }
+            else if(type === 'members') {
+                title.innerText = "👥 Liste Officielle des Membres";
+                let html = `<ul>`;
+                if(appData.members.length === 0) {
+                    html = `<p>Aucun membre inscrit.</p>`;
+                } else {
+                    appData.members.forEach(m => {
+                        html += `<li style="padding: 8px 0; border-bottom: 1px solid #eee;">👤 ${m.name}</li>`;
+                    });
+                    html += `</ul>`;
+                }
+                body.innerHTML = html;
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        // Charger l'application au démarrage
+        window.onload = renderApp;
+    </script>
+</body>
+</html> 
